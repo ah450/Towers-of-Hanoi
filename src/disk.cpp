@@ -1,19 +1,15 @@
 #include "../include/disk.hpp"
 
-Disk::Disk(double in_radius, double out_radius){
-	static counter = 0;
-	counter ++:
-	this->id = counter;
+Disk::Disk(Point origin ,double in_radius, double out_radius){
+	disk_origin = origin;
 	this->in_radius = in_radius;
 	this->out_radius = out_radius;
-	this->nsides = 20;
-	this->rings = 20;
+	this->nsides = 100;
+	this->rings = 100;
 }
 
-Disk::Disk(double in_radius, double out_radius, double nsides, double rings){
-	static counter = 0;
-	counter ++:
-	this->id = counter;
+Disk::Disk(Point origin ,double in_radius, double out_radius, double nsides, double rings){
+	disk_origin = origin;
 	this->in_radius = in_radius;
 	this->out_radius = out_radius;
 	this->nsides = nsides;
@@ -26,5 +22,5 @@ void Disk::drawDisk(){
 	glPopMatrix();
 }
 
-void Disk::translateDisk(){
+void Disk::moveDisk(){
 }
