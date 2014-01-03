@@ -77,6 +77,27 @@ void Environment::move(direction dir){
     }
 }
 
+
+bool Environment::can_move_selected(direction dir){
+    switch(dir){
+        case direction::up:
+            return true;
+        case direction::down:
+            if(selected->get_origin().y <= -5){
+               return false;
+            }
+            else if(){
+
+            }
+        case direction::right:
+            if(selected->get_outer_radius() > ){
+                return false;
+            }
+            return true;
+        case direction::left:
+    }
+}
+
 void Environment::highLight(rod_selected rod){
     rods[selected_rod].unhighlight();
     switch(rod){

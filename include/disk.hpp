@@ -28,4 +28,5 @@ public:
 	void move(const vector&);
     Point get_origin();
     void set_origin(Point);
+    double get_outer_radius();
 };

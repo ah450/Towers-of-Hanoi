@@ -66,6 +66,9 @@ Point Disk::get_origin(){
 	return disk_origin;
 }
 
+double Disk::get_outer_radius(){
+	return outer_radius;
+}
 void Disk::set_origin(Point p){
 	disk_origin.x = p.x;
 	disk_origin.y = p.y;
