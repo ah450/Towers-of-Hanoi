@@ -1,6 +1,6 @@
 CXXFLAG = -std=c++11 -Wall -Wextra -g
 OBJECTS = main.o rods.o land.o disk.o environment.o
-LIBS = -lGL -lglut -lGLU -lpng
+LIBS = -lGL -lglut -lGLU -lpng -lsfml-audio
 CXX = clang++
 all: clean main
 	./main

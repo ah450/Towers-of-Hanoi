@@ -12,7 +12,7 @@
 #define TEXTURE_LOAD_ERROR 0
 
 void Land::draw() {
-	float rgba[] ={0,0,1,0};
+	float rgba[] ={0,0,1,1};
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -21,7 +21,7 @@ void Land::draw() {
     glutSolidCube(m_size);
     glPopMatrix();
 
-    float rgba2[] ={1,0,0,0};
+    float rgba2[] ={1,0,0,1};
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba2);
     glPushMatrix();
     glTranslated(0,-8,0);
@@ -29,7 +29,7 @@ void Land::draw() {
     glutSolidCube(m_size-1);
     glPopMatrix();
 
-	float rgba3[] ={1,1,0,0};
+	float rgba3[] ={1,1,0,1};
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba3);
     glPushMatrix();
     glTranslated(0,-6,0);
