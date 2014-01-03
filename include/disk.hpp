@@ -3,11 +3,13 @@
 class Disk{
 private:
 	unsigned int id;
-	float height;
-	float inner_diameter;
-	float outer_diameter;
+	double in_radius;
+	double out_radius;
+    double nsides;
+    double rings;
 public:
-	Disk(float, float, float);
+	Disk(double, double);
+    Disk(double, double, double, double);
 	void drawDisk();
 	void translateDisk();//fix me
-}
+};

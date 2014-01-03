@@ -1,6 +1,7 @@
 
 #include <GL/freeglut.h>
 #include <GL/glu.h>
+#include "./include/disk.hpp"
 
 void SetupLights() 
 { 
@@ -32,13 +33,15 @@ void myDisplay(){
 	 
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT); 
 
-	glColor3f(0.5f,0.5f,0.5f);
-	GLUquadric*  quadric = gluNewQuadric();
-	//gluQuadricDrawStyle(quadric, render1);
-    //gluDisk(quadric, 1, 1, 3, 20);
-	// glutSolidCube(5);
+	glColor3f(1.0f,0.0f,0.0f);
 
-	glFlush(); 
+	Disk disk(2,4);
+	
+	glRotatef(45,0,1,0);
+	disk.drawDisk();
+
+
+	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();
 
