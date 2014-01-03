@@ -33,5 +33,5 @@ public:
     bool should_move_back();
     void apply_gravity();
     bool can_move(Disk&);
-    bool can_move_selected();
+    bool can_move_selected(direction);
 };

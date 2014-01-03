@@ -88,23 +88,24 @@ void Environment::move(direction dir){
 
 
 bool Environment::can_move_selected(direction dir){
-    switch(dir){
-        case direction::up:
-            return true;
-        case direction::down:
-            if(selected->get_origin().y <= -5){
-               return false;
-            }
-            else if(){
+    // switch(dir){
+    //     case direction::up:
+    //         return true;
+    //     case direction::down:
+    //         if(selected->get_origin().y <= -5){
+    //            return false;
+    //         }
+    //         else if(){
 
-            }
-        case direction::right:
-            if(selected->get_outer_radius() > ){
-                return false;
-            }
-            return true;
-        case direction::left:
-    }
+    //         }
+    //     case direction::right:
+    //         if(selected->get_outer_radius() > ){
+    //             return false;
+    //         }
+    //         return true;
+    //     case direction::left:
+    // }
+    return true;
 }
 
 void Environment::highLight(rod_selected rod){
@@ -128,72 +129,75 @@ bool inRange(float v, float min, float max) {
 
 bool Environment::should_move_back(){
     Point current_point = selected->get_origin();
+
     if(inRange(current_point.x, -8, -6) || inRange(current_point.x, -1, 1)
         || inRange(current_point.x , 6, 8)){
+
         if(current_point.y >= 0 && current_point.y <=10)
         {
+
             if(current_point.z == 0){
-                if(current_point.x == -7){
+                if(inRange(current_point.x, -8,-6)){
                     auto &s = stacks_array[0];
                     if(s.empty()) {
                         return false;
-                    }else if(selected > s.front()){
+                    }else if( !(selected > s.front())){
                         return true;
                     }else {
                         return false;
                     }
                 }
-                else if(current_point.x == 0){
+                else if(inRange(current_point.x, -1, 1)){
                     auto &s = stacks_array[1];
                     if(s.empty()) {
                         return false;
-                    }else if(selected > s.front()){
+                    }else if(!(selected > s.front())){
                         return true;
                     }else {
                         return false;
                     }
                 }
-                else if(current_point.x == 7){
+                else if(inRange(current_point.x, 6, 8)){
                     auto &s = stacks_array[2];
                     if(s.empty()) {
                         return false;
-                    }else if(selected > s.front()){
+                    }else if(!(selected > s.front())){
                         return true;
                     }else {
                         return false;
                     }
                 }
             }
-            return false;
+
+            return true;
         }else {
             return true;
         }
     } else {
         return true;
     }
-
 }
 
 void Environment::unselect(){
     if(current_selected) {
         if(should_move_back()){
             selected->set_origin(last_point);
+            stacks_array[selected_rod].push_front(selected);
 
         }else{
             move_counter++;
+            if(inRange(selected->get_origin().x, -8, -6)) {
+                stacks_array[0].push_front(selected);
+            } else if (inRange(selected->get_origin().x, -1 , 1) ){
+                stacks_array[1].push_front(selected);
+            }else if (inRange(selected->get_origin().x, 6, 8) ) {
+                stacks_array[2].push_front(selected);
+            }
 
-        }
-
-        if(inRange(selected->get_origin().x, -8, -6)) {
-            stacks_array[0].push_front(selected);
-        }else if (inRange(selected->get_origin().x, -1 , 1) ){
-            stacks_array[1].push_front(selected);
-        }else if (inRange(selected->get_origin().x, 6, 8) ) {
-            stacks_array[2].push_front(selected);
-        }
-   
-        current_selected = false;
+        }   
+        
     }
+    current_selected = false;
 }
 
 void Environment::apply_gravity(){
@@ -206,11 +210,18 @@ void Environment::apply_gravity(){
 
 //collision detection
 bool Environment::can_move(Disk &d){
-    if(d.get_origin().y <= -5){
+    if(d.get_origin().y <= -4.5){
+        return false;
+    } 
+    if(current_selected && (*selected == d)) {
         return false;
     }
-
-    if(d.get_origin().x == -7) {
+    if(inRange(d.get_origin().x, -8, -6)) {
+        if(stacks_array[0].empty()) {
+            return true;
+        }else if(stacks_array[0].size() == 1) {
+            return true;
+        }
         auto  iter = stacks_array[0].begin();
         while(iter != stacks_array[0].end() && **iter != d) {
             iter++;
@@ -227,7 +238,12 @@ bool Environment::can_move(Disk &d){
                 return false;
             }
         } 
-    }else if(d.get_origin().x == 0) {
+    }else if(inRange(d.get_origin().x, -1, 1)) {
+        if(stacks_array[1].empty() ){
+            return true;
+        }else if(stacks_array[0].size() == 1) {
+            return true;
+        }
         auto  iter = stacks_array[1].begin();
         while(iter != stacks_array[1].end() && **iter != d) {
             iter++;
@@ -244,7 +260,12 @@ bool Environment::can_move(Disk &d){
                 return false;
             }
         }
-    }else if(d.get_origin().x == 7) {
+    }else if(inRange(d.get_origin().x, 6, 8)) {
+        if(stacks_array[2].empty()) {
+            return true;
+        }else if(stacks_array[0].size() == 1) {
+            return true;
+        }
         auto  iter = stacks_array[2].begin();
         while(iter != stacks_array[2].end() && **iter != d) {
             iter++;
