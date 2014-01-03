@@ -8,10 +8,12 @@
 
 class Environment{
 private:
+    Land land;
+    std::array<Rod, 3> rods;
     std::array<Disk, 8> disks;
     std::array<std::stack<Disk *>, 3> stacks_array;
-    std::array<Rod, 3> rods;
-    Land land;
+    
 public:
     Environment();
+    void draw();
 };

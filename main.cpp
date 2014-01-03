@@ -1,4 +1,5 @@
 #include "./include/gl.hpp"
+#include "include/environment.hpp"
 #include "./include/rods.hpp"
 #include "./include/land.hpp"
 #include "include/disk.hpp"
@@ -9,9 +10,10 @@ double eyeX = 0;
 double eyeY = 20;
 double eyeZ = 30;
 
+Environment env;
 Land land({6});
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
-Disk testDisk({0.0,0.0,0.0}, {0.0f, 1.0f, 0.0f, 1.0f},0.5,1);
+Disk testDisk({0.0,0.0,0.0}, {0.0f, 1.0f, 0.0f, 1.0f},0.35,1.5);
 
 const float light_position[4] = {0.0f, 0.75f, 0.5f, 0.0f}; 
 
@@ -34,9 +36,11 @@ void myDisplay(){
 	
 
 
-	land.draw();
-	testRod.draw();
-	testDisk.draw();
+	// land.draw();
+	// testRod.draw();
+	// testDisk.draw();
+
+	env.draw();
 
 	glFlush(); 
 	glutSwapBuffers();
