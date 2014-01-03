@@ -96,9 +96,19 @@ void myDisplay(){
 	// define light pos
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position_1);
 	glLightfv(GL_LIGHT1, GL_POSITION, light_position_2);
-	env.draw();
-	
+	env.draw();	
 	land.render();
+	glPushMatrix();
+		std::string score("Current Moves: ");
+		score += std::to_string(env.move_counter);
+		glDisable(GL_LIGHTING);
+			glMatrixMode(GL_MODELVIEW);
+			glColor3f(1.0f, 1.0f, 1.0f);
+			glTranslatef(0.0f, 8.0f, 0.0f);
+			glScalef(0.009f, 0.009f, 1.0f);
+			glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char*)score.c_str());
+		glEnable(GL_LIGHTING);
+	glPopMatrix();
 	glFlush(); 
 	glutSwapBuffers();
 	glutPostRedisplay();
