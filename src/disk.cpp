@@ -1,23 +1,26 @@
-#include "./include/Disk.hpp"
+#include "../include/disk.hpp"
 
-Disk::Disk(float height, float inner_diameter, float outer_diameter){
-	static counter = 0;
-	counter ++:
-	this->id = counter;
-	this->inner_diameter = inner_diameter;
-	this->outer_diameter = outer_diameter;
-	this->vertSlices = vertSlices;
-	this->horizSlices = horizSlices;
+Disk::Disk(Point origin ,double in_radius, double out_radius){
+	disk_origin = origin;
+	this->in_radius = in_radius;
+	this->out_radius = out_radius;
+	this->nsides = 100;
+	this->rings = 100;
+}
+
+Disk::Disk(Point origin ,double in_radius, double out_radius, double nsides, double rings){
+	disk_origin = origin;
+	this->in_radius = in_radius;
+	this->out_radius = out_radius;
+	this->nsides = nsides;
+	this->rings = rings;
 }
 
 void Disk::drawDisk(){
 	glPushMatrix();
-		GLUquadric* disk;
-		quadric = gluNewQuadric();
-		gluDisk(disk, inner_diameter, outer_diameter, vertSlices, horizSlices);
+		glutSolidTorus(in_radius, out_radius, nsides, rings);
 	glPopMatrix();
 }
 
-void Disk::translateDisk(){
-
+void Disk::moveDisk(){
 }

@@ -1,13 +1,17 @@
 #pragma once
+#include "gl.hpp"
+#include "point.hpp"
 
 class Disk{
 private:
-	unsigned int id;
-	float height;
-	float inner_diameter;
-	float outer_diameter;
+    Point disk_origin;
+	double in_radius;
+	double out_radius;
+    double nsides;
+    double rings;
 public:
-	Disk(float, float, float);
+	Disk(Point ,double, double);
+    Disk(Point, double, double, double, double);
 	void drawDisk();
-	void translateDisk();//fix me
-}
+	void moveDisk();//fix me
+};
