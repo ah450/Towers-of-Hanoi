@@ -34,4 +34,5 @@ public:
     void apply_gravity();
     bool can_move(Disk&);
     bool can_move_selected(direction);
+    bool inRange(float, float, float);
 };

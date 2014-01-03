@@ -71,16 +71,24 @@ void Environment::move(direction dir){
     if(current_selected) {
         switch(dir){
             case direction::up:
-                selected->move(vector({0,0.5,0}));
+                if(can_move_selected(dir)){
+                    selected->move(vector({0,0.5,0}));
+                }
                 break;
             case direction::down:
-                selected->move(vector({0,-0.5,0}));
+                if(can_move_selected(dir)){
+                    selected->move(vector({0,-0.5,0}));
+                }
                 break;
             case direction::right:
-                selected->move(vector({0.5,0,0}));
+                if(can_move_selected(dir)){
+                    selected->move(vector({0.5,0,0}));
+                }
                 break;
             case direction::left:
-                selected->move(vector({-0.5,0,0}));
+                if(can_move_selected(dir)){
+                    selected->move(vector({-0.5,0,0}));
+                }
                 break;
         }
     }
@@ -88,24 +96,34 @@ void Environment::move(direction dir){
 
 
 bool Environment::can_move_selected(direction dir){
-    // switch(dir){
-    //     case direction::up:
-    //         return true;
-    //     case direction::down:
-    //         if(selected->get_origin().y <= -5){
-    //            return false;
-    //         }
-    //         else if(){
+    switch(dir){
+        case direction::up:
+            return true;
+        case direction::down:
+            if(selected->get_origin().y <= -5){
+               return false;
+            }
+            else if(1){
 
-    //         }
-    //     case direction::right:
-    //         if(selected->get_outer_radius() > ){
-    //             return false;
-    //         }
-    //         return true;
-    //     case direction::left:
-    // }
-    return true;
+            }
+            return true;
+        case direction::right:
+            if((inRange(selected->get_origin().x, -8,-6)||
+                inRange(selected->get_origin().x, -1, 1)||
+                inRange(selected->get_origin().x, 6, 8))
+                && inRange(selected->get_origin().y,-5 , 5)){
+                return false;
+            }
+            return true;
+        case direction::left:
+            if((inRange(selected->get_origin().x, -8,-6)||
+                inRange(selected->get_origin().x, -1, 1)||
+                inRange(selected->get_origin().x, 6, 8)
+                && inRange(selected->get_origin().y,-5 , 5))){
+                return false;
+            }
+            return true;
+    }
 }
 
 void Environment::highLight(rod_selected rod){
@@ -123,7 +141,7 @@ void Environment::highLight(rod_selected rod){
     }
     rods[selected_rod].highlight();
 }
-bool inRange(float v, float min, float max) {
+bool Environment::inRange(float v, float min, float max) {
     return (v >= min) && (v <= max);
 }
 
