@@ -1,26 +1,61 @@
 #include "../include/disk.hpp"
+#include <cstring>
 
-Disk::Disk(Point origin ,double in_radius, double out_radius){
+constexpr int height = 1;
+constexpr int stacks = 30;
+
+Disk::Disk(Point origin, Color rgba ,double in_radius, double out_radius): quad(gluNewQuadric()){
 	disk_origin = origin;
 	this->in_radius = in_radius;
 	this->out_radius = out_radius;
-	this->nsides = 100;
-	this->rings = 100;
+	this->slices = 200;
+	this->loops = 200;
+	gluQuadricDrawStyle(quad, GLU_FILL);
+    gluQuadricNormals(quad, GLU_SMOOTH);
+    gluQuadricOrientation(quad, GLU_OUTSIDE);
+	std::memcpy(this->rgba, reinterpret_cast<const void *>(&rgba), 4 * sizeof(float));
 }
 
-Disk::Disk(Point origin ,double in_radius, double out_radius, double nsides, double rings){
+Disk::Disk(Point origin, Color rgba, double in_radius, double out_radius, int slices, int loops): quad(gluNewQuadric()){
 	disk_origin = origin;
 	this->in_radius = in_radius;
 	this->out_radius = out_radius;
-	this->nsides = nsides;
-	this->rings = rings;
+	this->slices = slices;
+	this->loops = loops;
+	gluQuadricDrawStyle(quad, GLU_FILL);
+    gluQuadricNormals(quad, GLU_SMOOTH);
+    gluQuadricOrientation(quad, GLU_OUTSIDE);
+	std::memcpy(this->rgba, reinterpret_cast<const void *>(&rgba), 4 * sizeof(float));
 }
 
-void Disk::drawDisk(){
+void Disk::construct_disk(){
 	glPushMatrix();
-		glutSolidTorus(in_radius, out_radius, nsides, rings);
+		glTranslatef(0,height,0);
+		glRotatef(-90,1,0,0);
+		gluDisk(quad, in_radius, out_radius, slices, loops);
+	glPopMatrix();
+
+	glPushMatrix();
+		glRotatef(-90,1,0,0);
+	    gluCylinder(quad, in_radius, in_radius,  height, slices, stacks);
+	    gluCylinder(quad, out_radius, out_radius,  height, slices, stacks);
+	glPopMatrix();
+
+	glPushMatrix();
+		glRotatef(-90,1,0,0);
+		gluDisk(quad, in_radius, out_radius, slices, loops);
 	glPopMatrix();
 }
 
-void Disk::moveDisk(){
+void Disk::draw(){
+    glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	    glTranslatef(disk_origin.x, disk_origin.y - (in_radius) , disk_origin.z);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba);
+		construct_disk();
+	glPopMatrix();
 }
+
+void Disk::move(){
+}
+

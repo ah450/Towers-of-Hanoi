@@ -1,17 +1,21 @@
 #pragma once
 #include "gl.hpp"
 #include "point.hpp"
+#include "color.hpp"
 
 class Disk{
 private:
     Point disk_origin;
+    float rgba[4];
+    GLUquadricObj *quad;
 	double in_radius;
 	double out_radius;
-    double nsides;
-    double rings;
+    int slices;
+    int loops;
+    void construct_disk();
 public:
-	Disk(Point ,double, double);
-    Disk(Point, double, double, double, double);
-	void drawDisk();
-	void moveDisk();//fix me
+	Disk(Point, Color ,double, double);
+    Disk(Point, Color ,double, double, int, int);
+	void draw();
+	void move();//fix me
 };
