@@ -8,6 +8,7 @@ private:
     Point origin;
     GLUquadricObj *quad;
     float rgba[4];
+    GLuint texture;
 public:
     Rod(Point origin, Color rgba);
     void draw();
