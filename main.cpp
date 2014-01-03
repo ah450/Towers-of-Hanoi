@@ -49,7 +49,6 @@ int main(int argc, char** argv)
 
 	glShadeModel(GL_SMOOTH); 
 	glEnable(GL_DEPTH_TEST); 
-	// glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glClearColor(0.0,0.0,0.0,1.0);
