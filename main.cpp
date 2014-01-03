@@ -6,9 +6,10 @@
 
 unsigned int width = 1000;
 unsigned int height = 680;
-double eyeX = 0;
-double eyeY = 20;
-double eyeZ = 30;
+double eyeX = 00;
+double eyeY = 0;
+double eyeZ = 20;
+double val =0;
 
 Land land({6});
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
@@ -27,16 +28,17 @@ void myDisplay(){
 	gluPerspective(45.0f, width/height, 0.1f, 1000.0f);
 	glMatrixMode(GL_MODELVIEW); 
 	glLoadIdentity(); 
-	 
+	
 	gluLookAt(eyeX,eyeY, eyeZ, 0, 0, 0, 0,1.0,0); 
 	// define light pos
+	
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	//
 	
 
-
+	
 	land.draw();
-	land.init();
+	
 	land.render();
 	testRod.draw();
 	testDisk.draw();
@@ -79,6 +81,6 @@ int main(int argc, char** argv)
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
 	glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &spotCutoff);
 	glClearColor(0.0,0.0,0.0,1.0);
-	
+	land.init();
 	glutMainLoop(); // go into a perpetual loop 
 }
