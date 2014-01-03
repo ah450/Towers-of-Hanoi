@@ -1,7 +1,8 @@
 #include "./include/gl.hpp"
 #include "./include/rods.hpp"
-
+#include "include/disk.hpp"
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
+Disk testDisk({0.0,0.0,0.0},2,3);
 
 const float light_position[4] = {0.0f, 1.0f, 0.5f, 0.0f}; 
 
@@ -24,11 +25,10 @@ void myDisplay(){
 	
 
 	glColor3f(0.5f,0.5f,0.5f);
-	GLUquadric*  quadric = gluNewQuadric();
-	//gluQuadricDrawStyle(quadric, render1);
-    //gluDisk(quadric, 1, 1, 3, 20);
-	// glutSolidCube(5);
+	
 	testRod.draw();
+	testDisk.drawDisk();
+
 	glFlush(); 
 	glutSwapBuffers();
 	glutPostRedisplay();
