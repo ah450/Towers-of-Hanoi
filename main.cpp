@@ -46,7 +46,37 @@ static RodSelector CURRENT_ROD;
 Environment env;
 
 
+void selectRoDz(const RodSelector &selection) {
+	switch(selection.index) {
+		case 0:
+			env.highLight(rod_selected::left);
+			break;
+		case 1:
+			env.highLight(rod_selected::middle);
+			break;
+		default:
+			env.highLight(rod_selected::right);
 
+	}
+}
+
+void selectDiskFromRod(const RodSelector &selection) {
+	switch(selection.index) {
+		case 0:
+			env.select(rod_selected::left);
+			break;
+		case 1:
+			env.select(rod_selected::middle);
+			break;
+		default:
+			env.select(rod_selected::right);
+
+	}
+}
+
+void unselectDiskFromRod(const RodSelector & selection) {
+	env.unselect();
+}
 
 const float light_position_1[4] = {0.0f, 0.75f, 0.5f, 0.0f}; 
 const float light_position_2[4] = {0.0f, 0.75f, -0.5f, 0.0f}; 
@@ -78,13 +108,30 @@ void myDisplay(){
 void mySpecial(int key, int x, int y){
 	if(MOVING) {
 
+		switch(key) {
+			case GLUT_KEY_RIGHT:
+				env.move(direction::right);
+				break;
+			case GLUT_KEY_LEFT:
+				env.move(direction::left);
+				break;
+			case GLUT_KEY_UP:
+				env.move(direction::up);
+				break;
+			case GLUT_KEY_DOWN:
+				env.move(direction::down);
+				break;
+		}
+
 	}else {
 		switch (key) {
 			case GLUT_KEY_RIGHT:
 				++CURRENT_ROD;
+				selectRoDz(CURRENT_ROD);
 				break;
 			case GLUT_KEY_LEFT:
 				--CURRENT_ROD;
+				selectRoDz(CURRENT_ROD);
 				break;
 		}
 	}
@@ -116,9 +163,11 @@ void myKeyboard(unsigned char key, int x, int y) {
 			if(!MOVING) {
 				MOVING = true;
 				// call functions on game
+				selectDiskFromRod(CURRENT_ROD);
 			}else {
 				MOVING = false;
 				//call functions on game
+				unselectDiskFromRod(CURRENT_ROD);
 			}
 			break;
 		case 32:

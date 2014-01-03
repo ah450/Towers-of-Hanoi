@@ -18,7 +18,7 @@ Environment::Environment() :
         Disk({-7,2,0},{0.0f, 1.0f, 0.0f, 1.0f},0.35,1)}){
     
     for(auto & i:disks){
-        stacks_array[0].push(&i);  
+        stacks_array[0].push_front(&i);  
     }
     current_selected = false;
     selected_rod = 0;
@@ -36,42 +36,53 @@ void Environment::draw(){
     apply_gravity();
 }
 
-bool Environment::select(rod_selected rod){
-    auto &s = stacks_array[0];
-    switch(rod){
+
+static int translateSelection(rod_selected sel) {
+    switch (sel) {
+        case rod_selected::left:
+            return 0;
         case rod_selected::middle:
-            s = stacks_array[1];
-            break;
+            return 1;
         case rod_selected::right:
-            s = stacks_array[2];
-            break;
+            return 2;
+
     }
-    if(s.empty()){
+}
+bool Environment::select(rod_selected rod){
+    if(!current_selected) {
+        int index = translateSelection(rod);
+        auto &s = stacks_array[index];
+        if(s.empty()){
+            current_selected = false;
+            return false;
+        } else{
+            current_selected = true;
+            selected = s.front();
+            last_point = selected->get_origin();
+            s.pop_front();
+            return true;
+        }
+    }else {
         return false;
-    }
-    else{
-        current_selected = true;
-        selected = s.top();
-        last_point = selected->get_origin();
-        s.pop();
-        return true;
     }
 }
 
 void Environment::move(direction dir){
-    switch(dir){
-        case direction::up:
-            selected->move(vector({0,0.5,0}));
-            break;
-        case direction::down:
-            selected->move(vector({0,-0.5,0}));
-            break;
-        case direction::right:
-            selected->move(vector({0.5,0,0}));
-            break;
-        case direction::left:
-            selected->move(vector({-0.5,0,0}));
-            break;
+    if(current_selected) {
+        switch(dir){
+            case direction::up:
+                selected->move(vector({0,0.5,0}));
+                break;
+            case direction::down:
+                selected->move(vector({0,-0.5,0}));
+                break;
+            case direction::right:
+                selected->move(vector({0.5,0,0}));
+                break;
+            case direction::left:
+                selected->move(vector({-0.5,0,0}));
+                break;
+        }
     }
 }
 
@@ -100,19 +111,19 @@ bool Environment::should_move_back(){
             if(current_point.z == 0){
                 if(current_point.x == -7){
                     auto &s = stacks_array[0];
-                    if(selected > s.top()){
+                    if(selected > s.front()){
                         return false;
                     }
                 }
                 else if(current_point.x == 0){
                     auto &s = stacks_array[1];
-                    if(selected > s.top()){
+                    if(selected > s.front()){
                         return false;
                     }
                 }
                 else if(current_point.x == 7){
                     auto &s = stacks_array[2];
-                    if(selected > s.top()){
+                    if(selected > s.front()){
                         return false;
                     }
                 }
@@ -127,13 +138,15 @@ bool Environment::should_move_back(){
 }
 
 void Environment::unselect(){
-    if(should_move_back()){
-        selected->set_origin(last_point);
+    if(current_selected) {
+        if(should_move_back()){
+            selected->set_origin(last_point);
+        }
+        else{
+            move_counter++;
+        }
+        current_selected = false;
     }
-    else{
-        move_counter++;
-    }
-    current_selected = false;
 }
 
 void Environment::apply_gravity(){
@@ -145,6 +158,62 @@ void Environment::apply_gravity(){
 }
 
 //collision detection
-bool Environment::can_move(Disk &i){
-    return true;
+bool Environment::can_move(Disk &d){
+    if(d.get_origin().y <= -5){
+        return false;
+    }
+
+    if(d.get_origin().x == -7) {
+        auto  iter = stacks_array[0].begin();
+        while(iter != stacks_array[0].end() && **iter != d) {
+            iter++;
+        }
+        if(iter != stacks_array[0].end()){
+            iter++;
+            if(iter != stacks_array[0].end()) {
+                if(d.get_origin().y > (*iter)->get_origin().y + 1 ) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        } 
+    }else if(d.get_origin().x == 0) {
+        auto  iter = stacks_array[1].begin();
+        while(iter != stacks_array[1].end() && **iter != d) {
+            iter++;
+        }
+        if(iter != stacks_array[1].end()){
+            iter++;
+            if(iter != stacks_array[1].end()) {
+                if(d.get_origin().y > (*iter)->get_origin().y + 1 ) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        }
+    }else if(d.get_origin().x == 7) {
+        auto  iter = stacks_array[2].begin();
+        while(iter != stacks_array[2].end() && **iter != d) {
+            iter++;
+        }
+        if(iter != stacks_array[2].end()){
+            iter++;
+            if(iter != stacks_array[2].end()) {
+                if(d.get_origin().y > (*iter)->get_origin().y + 1 ) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        }
+    }
+    return false;
 }
