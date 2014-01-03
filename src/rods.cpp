@@ -1,6 +1,7 @@
 #include "../include/rods.hpp"
+#include "../include/utility.hpp"
 #include <cstring>
-constexpr double radius = 0.25;
+constexpr double radius = 0.15;
 constexpr double height = 10;
 constexpr int slices = 200;
 constexpr int stacks = 10;
@@ -11,7 +12,8 @@ Rod::Rod(Point origin, Color rgba) : origin(origin), quad(gluNewQuadric()) {
     gluQuadricOrientation(quad, GLU_OUTSIDE);
     gluQuadricTexture(quad, true);
     std::memcpy(this->rgba, reinterpret_cast<const void *>(&rgba), 4 * sizeof(float));
-
+    image::Bitmap texBMP("");
+    texture = loadTexture(texBMP);
 }
 
 void Rod::draw() {

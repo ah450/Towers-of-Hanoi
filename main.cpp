@@ -8,7 +8,7 @@ unsigned int height = 680;
 
 Land land({6});
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
-Disk testDisk({0.0,0.0,0.0}, {0.0f, 1.0f, 0.0f, 1.0f},0.5,1);
+Disk testDisk({0.0,0.0,0.0}, {0.0f, 1.0f, 0.0f, 1.0f}, 1.5,2, 200, 200);
 
 const float light_position[4] = {0.0f, 0.75f, 0.5f, 0.0f}; 
 
