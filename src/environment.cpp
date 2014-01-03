@@ -133,7 +133,7 @@ bool Environment::should_move_back(){
     if(inRange(current_point.x, -8, -6) || inRange(current_point.x, -1, 1)
         || inRange(current_point.x , 6, 8)){
 
-        if(current_point.y >= 0 && current_point.y <=10)
+        if(current_point.y >= -5 && current_point.y <=5)
         {
 
             if(current_point.z == 0){
@@ -209,7 +209,7 @@ void Environment::apply_gravity(){
 }
 
 //collision detection
-bool Environment::can_move(Disk &d){
+bool Environment::can_move(Disk &d){ 
     if(d.get_origin().y <= -4.5){
         return false;
     } 
@@ -241,7 +241,7 @@ bool Environment::can_move(Disk &d){
     }else if(inRange(d.get_origin().x, -1, 1)) {
         if(stacks_array[1].empty() ){
             return true;
-        }else if(stacks_array[0].size() == 1) {
+        }else if(stacks_array[1].size() == 1) {
             return true;
         }
         auto  iter = stacks_array[1].begin();
@@ -263,7 +263,7 @@ bool Environment::can_move(Disk &d){
     }else if(inRange(d.get_origin().x, 6, 8)) {
         if(stacks_array[2].empty()) {
             return true;
-        }else if(stacks_array[0].size() == 1) {
+        }else if(stacks_array[2].size() == 1) {
             return true;
         }
         auto  iter = stacks_array[2].begin();
