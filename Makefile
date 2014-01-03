@@ -1,11 +1,11 @@
-all: clean Main
-	./Main
+all: clean main
+	./main
 
-Main: clean Main.o 
-	g++ Main.o -framework OpenGL -framework GLUT -o Main
+main: clean main.o 
+	g++ main.o -lGL -lglut -lGLU -o main
 
-Main.o: Main.cpp
-	g++ -c Main.cpp
+main.o: main.cpp
+	g++ -c main.cpp
 
 clean:
-	rm -rf *o Main
+	rm -rf *o main

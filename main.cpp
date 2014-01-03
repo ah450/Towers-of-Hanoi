@@ -1,9 +1,6 @@
-#include <OpenGL/gl.h>
-#include <GLUT/glut.h>
-#include <OpenGL/Gl.h> 
-#include <OpenGL/glu.h>
-//#include "include/rods.hpp"
-//#include "include/disks.hpp"
+
+#include <GL/freeglut.h>
+#include <GL/glu.h>
 
 void SetupLights() 
 { 
@@ -38,8 +35,8 @@ void myDisplay(){
 	glColor3f(0.5f,0.5f,0.5f);
 	GLUquadric*  quadric = gluNewQuadric();
 	//gluQuadricDrawStyle(quadric, render1);
-    gluDisk(quadric, 1, 1, 3, 20);
-
+    //gluDisk(quadric, 1, 1, 3, 20);
+	// glutSolidCube(5);
 
 	glFlush(); 
 	glutSwapBuffers();
