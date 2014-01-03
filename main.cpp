@@ -1,19 +1,23 @@
-
-#include <GL/freeglut.h>
-#include <GL/glu.h>
+#include "./include/gl.hpp"
+#include "./include/rods.hpp"
+Rod testRod({0.0, 0.0, 0.0});
 
 void SetupLights() 
 { 
-	GLfloat mat_ambient[]={0.7f,0.7f,0.7f,1.0f}; 	 
-	GLfloat mat_diffuse[]={0.1f,0.6f,0.1,1.0f}; 
-	GLfloat mat_specular[]={1.0f,1.0f,1.0,1.0f}; 
-	GLfloat light_position[]={1.0f, 1.0f, 1.0f, 0.0f}; 
-	glLightfv(GL_LIGHT0,GL_POSITION,light_position); 
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, mat_diffuse); 
-	glLightfv(GL_LIGHT0, GL_AMBIENT, mat_ambient); 
-	glLightfv(GL_LIGHT0, GL_SPECULAR, mat_specular); 
-	glEnable(GL_LIGHTING); 
-	glEnable(GL_LIGHT0); 
+	// GLfloat mat_ambient[]={0.7f,0.7f,0.7f,1.0f}; 	 
+	// GLfloat mat_diffuse[]={0.1f,0.6f,0.1,1.0f}; 
+	// GLfloat mat_specular[]={1.0f,1.0f,1.0,1.0f}; 
+	// GLfloat light_position[]={1.0f, 1.0f, 1.0f, 0.0f}; 
+	// glLightfv(GL_LIGHT0,GL_POSITION,light_position); 
+	// glLightfv(GL_LIGHT0, GL_DIFFUSE, mat_diffuse); 
+	// glLightfv(GL_LIGHT0, GL_AMBIENT, mat_ambient); 
+	// glLightfv(GL_LIGHT0, GL_SPECULAR, mat_specular); 
+	// glEnable(GL_LIGHTING); 
+	// glEnable(GL_LIGHT0);
+	float light_position[4] = {0.0f, 1.0f, 0.5f, 0.0f}; // light at infinity
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position); // set position 
 }
 
 
@@ -24,11 +28,11 @@ void myDisplay(){
 	glMatrixMode(GL_PROJECTION); 
 	glLoadIdentity(); 
 	
-	gluPerspective(45.0f, 100/64, 0.1f, 1000.0f);
+	gluPerspective(45.0f, 1000/680, 0.1f, 1000.0f);
 	glMatrixMode(GL_MODELVIEW); 
 	glLoadIdentity(); 
 	 
-	gluLookAt(10,10, 10, 0, 0, 0,0.0,1.0,0.0); 
+	gluLookAt(0,0, 30, 0, 0, 0, 0,1.0,0); 
 	 
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT); 
 
@@ -37,7 +41,7 @@ void myDisplay(){
 	//gluQuadricDrawStyle(quadric, render1);
     //gluDisk(quadric, 1, 1, 3, 20);
 	// glutSolidCube(5);
-
+	testRod.draw();
 	glFlush(); 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -61,7 +65,7 @@ int main(int argc, char** argv)
 	glEnable(GL_NORMALIZE); 
 	glEnable(GL_COLOR_MATERIAL);
 
-	glClearColor(1.0,1.0,1.0,1.0);
+	glClearColor(0.0,0.0,0.0,1.0);
 	
 	glutMainLoop(); // go into a perpetual loop 
 }
