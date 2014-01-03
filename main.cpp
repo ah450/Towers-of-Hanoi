@@ -40,7 +40,7 @@ void myDisplay(){
 
 void mySpecial(int key, int x, int y){
 	if(MOVING) {
-
+		
 	}else {
 		switch (key) {
 			case GLUT_KEY_RIGHT:
