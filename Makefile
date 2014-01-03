@@ -1,5 +1,5 @@
 CXXFLAG = -std=c++11 -Wall -Wextra -g
-OBJECTS = main.o rods.o land.o disk.o
+OBJECTS = main.o rods.o land.o disk.o environment.o
 LIBS = -lGL -lglut -lGLU -lpng
 CXX = clang++
 all: clean main
@@ -7,7 +7,6 @@ all: clean main
 
 main: clean $(OBJECTS)
 	$(CXX) $(CXXFLAG) $(OBJECTS) $(LIBS) -o main
-
 
 main.o: main.cpp include/gl.hpp include/rods.hpp include/land.hpp
 	$(CXX) $(CXXFLAG) -c main.cpp -o main.o
@@ -17,6 +16,7 @@ land.o: src/land.cpp include/land.hpp
 	$(CXX) $(CXXFLAG) -c src/land.cpp -o land.o
 disk.o: src/disk.cpp
 	$(CXX) $(CXXFLAG) -c src/disk.cpp -o disk.o
-
+environment.o:
+	${CXX} $(CXXFLAG) -c src/environment.cpp -o environment.o
 clean:
 	rm -rf *o main
