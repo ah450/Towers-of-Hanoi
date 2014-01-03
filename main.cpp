@@ -3,8 +3,8 @@
 #include "./include/land.hpp"
 #include "include/disk.hpp"
 
-Rod testRod({0.0, 5.0, 0.0});
 Land land({6});
+Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
 Disk testDisk({0.0,0.0,0.0},2,3);
 
 const float light_position[4] = {0.0f, 1.0f, 0.5f, 0.0f}; 
@@ -47,13 +47,11 @@ int main(int argc, char** argv)
 	glutInitWindowSize(1000,680); // set window size 
 	glutInitWindowPosition(200, 150); // set window position on 
 	 
-	glutCreateWindow("3D LUNAR LANDER"); // open the screen window 
+	glutCreateWindow("Towers of Hanoi"); // open the screen window 
 	glutDisplayFunc(myDisplay); // register redraw function 
 
 	glShadeModel(GL_SMOOTH); 
 	glEnable(GL_DEPTH_TEST); 
-	glEnable(GL_NORMALIZE); 
-	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glClearColor(0.0,0.0,0.0,1.0);
