@@ -112,27 +112,27 @@ bool Environment::should_move_back(){
                 if(current_point.x == -7){
                     auto &s = stacks_array[0];
                     if(selected > s.front()){
-                        return false;
+                        return true;
                     }
                 }
                 else if(current_point.x == 0){
                     auto &s = stacks_array[1];
                     if(selected > s.front()){
-                        return false;
+                        return true;
                     }
                 }
                 else if(current_point.x == 7){
                     auto &s = stacks_array[2];
                     if(selected > s.front()){
-                        return false;
+                        return true;
                     }
                 }
             }
-            return true;
+            return false;
         }
     }
     else {
-        return false;
+        return true;
     }
 
 }
