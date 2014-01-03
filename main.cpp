@@ -1,7 +1,7 @@
 #include "./include/gl.hpp"
 #include "./include/rods.hpp"
 
-Rod testRod({0.0, 0.0, 0.0});
+Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
 
 const float light_position[4] = {0.0f, 1.0f, 0.5f, 0.0f}; 
 
@@ -49,8 +49,7 @@ int main(int argc, char** argv)
 
 	glShadeModel(GL_SMOOTH); 
 	glEnable(GL_DEPTH_TEST); 
-	glEnable(GL_NORMALIZE); 
-	glEnable(GL_COLOR_MATERIAL);
+	// glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glClearColor(0.0,0.0,0.0,1.0);
