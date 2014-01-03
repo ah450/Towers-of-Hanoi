@@ -9,6 +9,7 @@ unsigned int height = 680;
 double eyeX = 0;
 double eyeY = 20;
 double eyeZ = 30;
+static bool MOVING = false;
 
 Land land({6});
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
@@ -19,42 +20,39 @@ const float light_position[4] = {0.0f, 0.75f, 0.5f, 0.0f};
 
 void myDisplay(){
 
-	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT); 
-
+	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION); 
-	glLoadIdentity(); 
-	
+	glLoadIdentity(); 	
 	gluPerspective(45.0f, width/height, 0.1f, 1000.0f);
 	glMatrixMode(GL_MODELVIEW); 
-	glLoadIdentity(); 
-	 
+	glLoadIdentity(); 	 
 	gluLookAt(eyeX,eyeY, eyeZ, 0, 0, 0, 0,1.0,0); 
 	// define light pos
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	//
-	
-
-
 	land.draw();
 	land.init();
 	land.render();
 	testRod.draw();
 	testDisk.draw();
-
 	glFlush(); 
 	glutSwapBuffers();
 	glutPostRedisplay();
 
 }
 
-void myKeyboard(int key, int x, int y){
-	switch(key){
-		case GLUT_KEY_UP:
-			eyeY ++;
-			break;
-		case GLUT_KEY_DOWN:
-			eyeY --;
-			break;
+void mySpecial(int key, int x, int y){
+
+
+	if(MOVING) {
+		swtich
+
+	}else {
+		switch (key) {
+			case GLUT_KEY_RIGHT:
+				break;
+			case GLUT_KEY_LEFT:
+				break;
+		}
 	}	
 }
 
@@ -71,7 +69,7 @@ int main(int argc, char** argv)
 	glutCreateWindow("Towers of Hanoi"); // open the screen window 
 	glutDisplayFunc(myDisplay); // register redraw function 
 
-	glutSpecialFunc(myKeyboard);
+	glutSpecialFunc(mySpecial);
 
 	glShadeModel(GL_SMOOTH); 
 	glEnable(GL_DEPTH_TEST); 
