@@ -13,7 +13,7 @@ Rod::Rod(Point origin, Color rgba) : origin(origin), quad(gluNewQuadric()) {
     gluQuadricTexture(quad, true);
     std::memcpy(this->rgba, reinterpret_cast<const void *>(&rgba), 4 * sizeof(float));
     int width, height; 
-    texture = loadTexture("rod.png", width, height);
+    //texture = loadTexture("rod.png", width, height);
 }
 
 void Rod::draw() {

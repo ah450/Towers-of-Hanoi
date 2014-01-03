@@ -36,8 +36,9 @@ void myDisplay(){
 
 
 	land.draw();
+	land.init();
+	land.render();
 	testRod.draw();
-	render();
 	testDisk.draw();
 	glFlush(); 
 	glutSwapBuffers();
@@ -68,7 +69,6 @@ int main(int argc, char** argv)
 	 
 	glutCreateWindow("Towers of Hanoi"); // open the screen window 
 	glutDisplayFunc(myDisplay); // register redraw function 
-	init();
 	glutSpecialFunc(myKeyboard);
 	glShadeModel(GL_SMOOTH); 
 	glEnable(GL_DEPTH_TEST); 
