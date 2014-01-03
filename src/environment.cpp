@@ -38,42 +38,53 @@ void Environment::draw(){
     apply_gravity();
 }
 
-bool Environment::select(rod_selected rod){
-    auto &s = stacks_array[0];
-    switch(rod){
+
+static int translateSelection(rod_selected sel) {
+    switch (sel) {
+        case rod_selected::left:
+            return 0;
         case rod_selected::middle:
-            s = stacks_array[1];
-            break;
+            return 1;
         case rod_selected::right:
-            s = stacks_array[2];
-            break;
+            return 2;
+
     }
-    if(s.empty()){
+}
+bool Environment::select(rod_selected rod){
+    if(!current_selected) {
+        int index = translateSelection(rod);
+        auto &s = stacks_array[index];
+        if(s.empty()){
+            current_selected = false;
+            return false;
+        } else{
+            current_selected = true;
+            selected = s.front();
+            last_point = selected->get_origin();
+            s.pop_front();
+            return true;
+        }
+    }else {
         return false;
-    }
-    else{
-        current_selected = true;
-        selected = s.front();
-        last_point = selected->get_origin();
-        s.pop_front();
-        return true;
     }
 }
 
 void Environment::move(direction dir){
-    switch(dir){
-        case direction::up:
-            selected->move(vector({0,0.5,0}));
-            break;
-        case direction::down:
-            selected->move(vector({0,-0.5,0}));
-            break;
-        case direction::right:
-            selected->move(vector({0.5,0,0}));
-            break;
-        case direction::left:
-            selected->move(vector({-0.5,0,0}));
-            break;
+    if(current_selected) {
+        switch(dir){
+            case direction::up:
+                selected->move(vector({0,0.5,0}));
+                break;
+            case direction::down:
+                selected->move(vector({0,-0.5,0}));
+                break;
+            case direction::right:
+                selected->move(vector({0.5,0,0}));
+                break;
+            case direction::left:
+                selected->move(vector({-0.5,0,0}));
+                break;
+        }
     }
 }
 
@@ -129,13 +140,15 @@ bool Environment::should_move_back(){
 }
 
 void Environment::unselect(){
-    if(should_move_back()){
-        selected->set_origin(last_point);
+    if(current_selected) {
+        if(should_move_back()){
+            selected->set_origin(last_point);
+        }
+        else{
+            move_counter++;
+        }
+        current_selected = false;
     }
-    else{
-        move_counter++;
-    }
-    current_selected = false;
 }
 
 void Environment::apply_gravity(){
