@@ -19,7 +19,7 @@ Environment::Environment() :
         Disk({-7,2,0},{0.0f, 1.0f, 0.0f, 1.0f},0.35,1)}){
     
     for(auto & i:disks){
-        stacks_array[0].push(&i);  
+        stacks_array[0].push_front(&i);  
     }
     current_selected = false;
     selected_rod = 0;
@@ -53,9 +53,9 @@ bool Environment::select(rod_selected rod){
     }
     else{
         current_selected = true;
-        selected = s.top();
+        selected = s.front();
         last_point = selected->get_origin();
-        s.pop();
+        s.pop_front();
         return true;
     }
 }
@@ -102,19 +102,19 @@ bool Environment::should_move_back(){
             if(current_point.z == 0){
                 if(current_point.x == -7){
                     auto &s = stacks_array[0];
-                    if(selected > s.top()){
+                    if(selected > s.front()){
                         return false;
                     }
                 }
                 else if(current_point.x == 0){
                     auto &s = stacks_array[1];
-                    if(selected > s.top()){
+                    if(selected > s.front()){
                         return false;
                     }
                 }
                 else if(current_point.x == 7){
                     auto &s = stacks_array[2];
-                    if(selected > s.top()){
+                    if(selected > s.front()){
                         return false;
                     }
                 }
@@ -147,6 +147,62 @@ void Environment::apply_gravity(){
 }
 
 //collision detection
-bool Environment::can_move(Disk &i){
-    return true;
+bool Environment::can_move(Disk &d){
+    if(d.get_origin().y <= -5){
+        return false;
+    }
+
+    if(d.get_origin().x == -7) {
+        auto  iter = stacks_array[0].begin();
+        while(iter != stacks_array[0].end() && **iter != d) {
+            iter++;
+        }
+        if(iter != stacks_array[0].end()){
+            iter++;
+            if(iter != stacks_array[0].end()) {
+                if(d.get_origin().y > (*iter)->get_origin().y + 1 ) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        } 
+    }else if(d.get_origin().x == 0) {
+        auto  iter = stacks_array[1].begin();
+        while(iter != stacks_array[1].end() && **iter != d) {
+            iter++;
+        }
+        if(iter != stacks_array[1].end()){
+            iter++;
+            if(iter != stacks_array[1].end()) {
+                if(d.get_origin().y > (*iter)->get_origin().y + 1 ) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        }
+    }else if(d.get_origin().x == 7) {
+        auto  iter = stacks_array[2].begin();
+        while(iter != stacks_array[2].end() && **iter != d) {
+            iter++;
+        }
+        if(iter != stacks_array[2].end()){
+            iter++;
+            if(iter != stacks_array[2].end()) {
+                if(d.get_origin().y > (*iter)->get_origin().y + 1 ) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        }
+    }
+    return false;
 }

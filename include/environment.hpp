@@ -3,7 +3,7 @@
 #include "disk.hpp"
 #include "rods.hpp"
 #include "land.hpp"
-#include <stack>
+#include <list>
 #include <array>
 
 enum class rod_selected{
@@ -19,7 +19,7 @@ private:
     Land land;
     std::array<Rod, 3> rods;
     std::array<Disk, 8> disks;
-    std::array<std::stack<Disk *>, 3> stacks_array;
+    std::array<std::list<Disk *>, 3> stacks_array;
     bool current_selected;
     Disk * selected; 
     int selected_rod;
