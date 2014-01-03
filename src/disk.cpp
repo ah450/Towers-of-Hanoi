@@ -56,6 +56,9 @@ void Disk::draw(){
 	glPopMatrix();
 }
 
-void Disk::move(){
+void Disk::move(vector& v){
+	disk_origin.x += v.x;
+	disk_origin.y += v.y;
+	disk_origin.z += v.z;
 }
 

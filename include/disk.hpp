@@ -2,6 +2,7 @@
 #include "gl.hpp"
 #include "point.hpp"
 #include "color.hpp"
+#include "vector.hpp"
 
 class Disk{
 private:
@@ -17,5 +18,5 @@ public:
 	Disk(Point, Color ,double, double);
     Disk(Point, Color ,double, double, int, int);
 	void draw();
-	void move();//fix me
+	void move(vector&);
 };

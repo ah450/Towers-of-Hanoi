@@ -56,6 +56,12 @@ void myKeyboard(int key, int x, int y){
 		case GLUT_KEY_DOWN:
 			eyeY --;
 			break;
+		case GLUT_KEY_RIGHT:
+			eyeX ++;
+			break;
+		case GLUT_KEY_LEFT:
+			eyeY --;
+			break;
 	}	
 }
 
