@@ -47,30 +47,34 @@ Environment env;
 
 
 void selectRoDz(const RodSelector &selection) {
-	switch(selection.index) {
-		case 0:
-			env.highLight(rod_selected::left);
-			break;
-		case 1:
-			env.highLight(rod_selected::middle);
-			break;
-		default:
-			env.highLight(rod_selected::right);
+	if(!env.gameOver()) {
+		switch(selection.index) {
+			case 0:
+				env.highLight(rod_selected::left);
+				break;
+			case 1:
+				env.highLight(rod_selected::middle);
+				break;
+			default:
+				env.highLight(rod_selected::right);
 
+		}
 	}
 }
 
-void selectDiskFromRod(const RodSelector &selection) {
-	switch(selection.index) {
-		case 0:
-			env.select(rod_selected::left);
-			break;
-		case 1:
-			env.select(rod_selected::middle);
-			break;
-		default:
-			env.select(rod_selected::right);
+void selectDiskFromRod(const RodSelector &selection) {\
+	if(!env.gameOver()) {
+		switch(selection.index) {
+			case 0:
+				env.select(rod_selected::left);
+				break;
+			case 1:
+				env.select(rod_selected::middle);
+				break;
+			default:
+				env.select(rod_selected::right);
 
+		}
 	}
 }
 
@@ -109,6 +113,19 @@ void myDisplay(){
 			glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char*)score.c_str());
 		glEnable(GL_LIGHTING);
 	glPopMatrix();
+	if(!env.gameOver()) {
+		glPushMatrix();
+			std::string SCORES("YOUR SCORE IS: ");
+			SCORES += std::to_string( ((float) env.move_counter )/ 255 ) + " best is 1 above is bad";
+			glDisable(GL_LIGHTING);
+				glMatrixMode(GL_MODELVIEW);
+				glColor3f(1.0f, 1.0f, 1.0f);
+				glTranslatef(-10.0f, 10.0f, 0.0f);
+				glScalef(0.006f, 0.006f, 1.0f);
+				glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char*)SCORES.c_str());
+			glEnable(GL_LIGHTING);
+		glPopMatrix();
+	}
 	glFlush(); 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -116,78 +133,82 @@ void myDisplay(){
 }
 
 void mySpecial(int key, int x, int y){
-	if(MOVING) {
+	if(!env.gameOver()) {
+		if(MOVING) {
+
+			switch(key) {
+				case GLUT_KEY_RIGHT:
+					env.move(direction::right);
+					break;
+				case GLUT_KEY_LEFT:
+					env.move(direction::left);
+					break;
+				case GLUT_KEY_UP:
+					env.move(direction::up);
+					break;
+				case GLUT_KEY_DOWN:
+					env.move(direction::down);
+					break;
+			}
+
+		}else {
+			switch (key) {
+				case GLUT_KEY_RIGHT:
+					++CURRENT_ROD;
+					selectRoDz(CURRENT_ROD);
+					break;
+				case GLUT_KEY_LEFT:
+					--CURRENT_ROD;
+					selectRoDz(CURRENT_ROD);
+					break;
+			}
+		}
 
 		switch(key) {
-			case GLUT_KEY_RIGHT:
-				env.move(direction::right);
+			case GLUT_KEY_PAGE_DOWN:
+				currentVolume -= 5.0f;
+				if(currentVolume < 0) {
+					currentVolume = 0;
+				}
+				music.setVolume(currentVolume);
 				break;
-			case GLUT_KEY_LEFT:
-				env.move(direction::left);
+			case GLUT_KEY_PAGE_UP:
+				currentVolume += 5.0f;
+				if(currentVolume > 100.0f) {
+					currentVolume = 100.0f;
+				}
+				music.setVolume(currentVolume);
 				break;
-			case GLUT_KEY_UP:
-				env.move(direction::up);
-				break;
-			case GLUT_KEY_DOWN:
-				env.move(direction::down);
-				break;
-		}
-
-	}else {
-		switch (key) {
-			case GLUT_KEY_RIGHT:
-				++CURRENT_ROD;
-				selectRoDz(CURRENT_ROD);
-				break;
-			case GLUT_KEY_LEFT:
-				--CURRENT_ROD;
-				selectRoDz(CURRENT_ROD);
-				break;
-		}
+		}	
 	}
-
-	switch(key) {
-		case GLUT_KEY_PAGE_DOWN:
-			currentVolume -= 5.0f;
-			if(currentVolume < 0) {
-				currentVolume = 0;
-			}
-			music.setVolume(currentVolume);
-			break;
-		case GLUT_KEY_PAGE_UP:
-			currentVolume += 5.0f;
-			if(currentVolume > 100.0f) {
-				currentVolume = 100.0f;
-			}
-			music.setVolume(currentVolume);
-			break;
-	}	
 }
 
 void myKeyboard(unsigned char key, int x, int y) {
-	switch (key) {
-		case 27: // escape
-			glutLeaveMainLoop();
-			break;
-		case 13: // return
-			if(!MOVING) {
-				MOVING = true;
-				// call functions on game
-				selectDiskFromRod(CURRENT_ROD);
-			}else {
-				MOVING = false;
-				//call functions on game
-				unselectDiskFromRod(CURRENT_ROD);
-			}
-			break;
-		case 32:
-			if(playing) {
-				music.pause();
-				playing = false;
-			}else {
-				music.play();
-				playing = true;
-			}
+	if(!env.gameOver() ) {
+		switch (key) {
+			case 27: // escape
+				glutLeaveMainLoop();
+				break;
+			case 13: // return
+				if(!MOVING) {
+					MOVING = true;
+					// call functions on game
+					selectDiskFromRod(CURRENT_ROD);
+				}else {
+					MOVING = false;
+					//call functions on game
+					unselectDiskFromRod(CURRENT_ROD);
+				}
+				break;
+			case 32:
+				if(playing) {
+					music.pause();
+					playing = false;
+				}else {
+					music.play();
+					playing = true;
+				}
+		}
 	}
 }
 

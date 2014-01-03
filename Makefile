@@ -1,4 +1,4 @@
-CXXFLAG = -std=c++11 -Wall -Wextra -g
+CXXFLAG = -std=c++11 -Wall -Wextra -O3
 OBJECTS = main.o rods.o land.o disk.o environment.o
 LIBS = -lGL -lglut -lGLU -lpng -lsfml-audio
 CXX = clang++
