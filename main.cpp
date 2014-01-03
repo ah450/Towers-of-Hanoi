@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 	glutInitWindowSize(1000,680); // set window size 
 	glutInitWindowPosition(200, 150); // set window position on 
 	 
-	glutCreateWindow("3D LUNAR LANDER"); // open the screen window 
+	glutCreateWindow("Towers of Hanoi"); // open the screen window 
 	glutDisplayFunc(myDisplay); // register redraw function 
 
 	glShadeModel(GL_SMOOTH); 
