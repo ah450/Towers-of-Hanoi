@@ -11,6 +11,25 @@ double eyeX = 0;
 double eyeY = 20;
 double eyeZ = 30;
 static bool MOVING = false;
+struct RodSelector {
+	unsigned int index;
+	RodSelector() : index(0){}
+	RodSelector & operator--(){
+		index--;
+		if(index < 0 ) {
+			index = 2;
+		}
+		return *this;
+	}
+	RodSelector & operator++() {
+		index++;
+		if(index > 2) {
+			index = 0;
+		}
+		return *this;
+	}
+};
+static RodSelector CURRENT_ROD;
 
 Environment env;
 
@@ -44,8 +63,10 @@ void mySpecial(int key, int x, int y){
 	}else {
 		switch (key) {
 			case GLUT_KEY_RIGHT:
+				++CURRENT_ROD;
 				break;
 			case GLUT_KEY_LEFT:
+				--CURRENT_ROD;
 				break;
 		}
 	}	
@@ -55,6 +76,15 @@ void myKeyboard(unsigned char key, int x, int y) {
 	switch (key) {
 		case 27: // escape
 			glutLeaveMainLoop();
+			break;
+		case 13: // return
+			if(!MOVING) {
+				MOVING = true;
+				// call functions on game
+			}else {
+				MOVING = false;
+				//call functions on game
+			}
 			break;
 	}
 }
@@ -80,6 +110,8 @@ int main(int argc, char** argv)
 	glEnable(GL_DEPTH_TEST); 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable (GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	const float whiteLight[4] = {0.8f, 0.8f, 0.8f, 1.0f};
 	const float spotCutoff = 60.0f;
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
