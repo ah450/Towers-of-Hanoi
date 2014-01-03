@@ -8,7 +8,7 @@ unsigned int height = 680;
 
 Land land({6});
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
-Disk testDisk({0.0,0.0,0.0},2,3);
+Disk testDisk({0.0,0.0,0.0}, {0.0f, 1.0f, 0.0f, 1.0f},0.5,1);
 
 const float light_position[4] = {0.0f, 0.75f, 0.5f, 0.0f}; 
 
@@ -27,10 +27,9 @@ void myDisplay(){
 	gluLookAt(0,0, 30, 0, 0, 0, 0,1.0,0); 
 	// define light pos
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	
 	land.draw();
 	testRod.draw();
-	testDisk.drawDisk();
+	testDisk.draw();
 
 	glFlush(); 
 	glutSwapBuffers();
