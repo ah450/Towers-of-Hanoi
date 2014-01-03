@@ -35,4 +35,6 @@ public:
     bool can_move(Disk&);
     bool can_move_selected(direction);
     bool inRange(float, float, float);
+    bool gameOver();
+    
 };
