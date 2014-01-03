@@ -303,3 +303,7 @@ bool Environment::can_move(Disk &d){
     }
     return false;
 }
+
+bool Environment::gameOver(){
+    return stacks_array[2].size() == 8
+}
