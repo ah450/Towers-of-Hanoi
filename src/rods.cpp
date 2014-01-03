@@ -15,6 +15,7 @@ Rod::Rod(Point origin) : origin(origin), quad(gluNewQuadric()) {
 void Rod::draw() {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
+    glTranslatef(origin.x, origin.y - (height / 2) , origin.z);
     glRotatef( 90,1.0f, 0.0f,0.0);
     gluCylinder(quad, radius, radius,  height, slices, stacks);
     glPopMatrix();
