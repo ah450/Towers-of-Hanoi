@@ -1,6 +1,9 @@
 #include "./include/gl.hpp"
 #include "./include/rods.hpp"
 #include "include/disk.hpp"
+unsigned int width = 1000;
+unsigned int height = 680;
+
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
 Disk testDisk({0.0,0.0,0.0},2,3);
 
@@ -14,7 +17,7 @@ void myDisplay(){
 	glMatrixMode(GL_PROJECTION); 
 	glLoadIdentity(); 
 	
-	gluPerspective(45.0f, 1000/680, 0.1f, 1000.0f);
+	gluPerspective(45.0f, width/height, 0.1f, 1000.0f);
 	glMatrixMode(GL_MODELVIEW); 
 	glLoadIdentity(); 
 	 
@@ -41,7 +44,7 @@ int main(int argc, char** argv)
 	 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB|GLUT_DEPTH); // set 
 	 
-	glutInitWindowSize(1000,680); // set window size 
+	glutInitWindowSize(width, height); // set window size 
 	glutInitWindowPosition(200, 150); // set window position on 
 	 
 	glutCreateWindow("3D LUNAR LANDER"); // open the screen window 
