@@ -5,10 +5,13 @@
 
 unsigned int width = 1000;
 unsigned int height = 680;
+double eyeX = 0;
+double eyeY = 20;
+double eyeZ = 30;
 
 Land land({6});
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
-Disk testDisk({0.0,0.0,0.0}, {0.0f, 1.0f, 0.0f, 1.0f},0.5,1);
+Disk testDisk({0.0,0.0,0.0}, {0.0f, 1.0f, 0.0f, 1.0f},0.5,4);
 
 const float light_position[4] = {0.0f, 1.0f, 0.5f, 0.0f}; 
 
@@ -24,15 +27,15 @@ void myDisplay(){
 	glMatrixMode(GL_MODELVIEW); 
 	glLoadIdentity(); 
 	 
-	gluLookAt(0,0, 30, 0, 0, 0, 0,1.0,0); 
+	gluLookAt(eyeX,eyeY, eyeZ, 0, 0, 0, 0,1.0,0); 
 	// define light pos
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	//
 	
 
 
-	land.draw();
-	testRod.draw();
+	//land.draw();
+	//testRod.draw();
 	testDisk.draw();
 
 	glFlush(); 
@@ -40,6 +43,18 @@ void myDisplay(){
 	glutPostRedisplay();
 
 }
+
+void myKeyboard(int key, int x, int y){
+	switch(key){
+		case GLUT_KEY_UP:
+			eyeY ++;
+			break;
+		case GLUT_KEY_DOWN:
+			eyeY --;
+			break;
+	}	
+}
+
 int main(int argc, char** argv) 
 { 	
 	
@@ -52,6 +67,8 @@ int main(int argc, char** argv)
 	 
 	glutCreateWindow("Towers of Hanoi"); // open the screen window 
 	glutDisplayFunc(myDisplay); // register redraw function 
+
+	glutSpecialFunc(myKeyboard);
 
 	glShadeModel(GL_SMOOTH); 
 	glEnable(GL_DEPTH_TEST); 
