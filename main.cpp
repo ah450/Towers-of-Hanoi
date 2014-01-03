@@ -1,8 +1,14 @@
 #include "./include/gl.hpp"
 #include "./include/rods.hpp"
+#include "./include/land.hpp"
 #include "include/disk.hpp"
+
+unsigned int width = 1000;
+unsigned int height = 680;
+
+Land land({6});
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
-Disk testDisk({0.0,0.0,0.0},{0.0f, 1.0f, 0.0f, 1.0f},2,3);
+Disk testDisk({0.0,0.0,0.0},2,3);
 
 const float light_position[4] = {0.0f, 1.0f, 0.5f, 0.0f}; 
 
@@ -14,7 +20,7 @@ void myDisplay(){
 	glMatrixMode(GL_PROJECTION); 
 	glLoadIdentity(); 
 	
-	gluPerspective(45.0f, 1000/680, 0.1f, 1000.0f);
+	gluPerspective(45.0f, width/height, 0.1f, 1000.0f);
 	glMatrixMode(GL_MODELVIEW); 
 	glLoadIdentity(); 
 	 
@@ -23,7 +29,9 @@ void myDisplay(){
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	//
 	
-	
+
+
+	land.draw();
 	testRod.draw();
 	testDisk.draw();
 
@@ -39,7 +47,7 @@ int main(int argc, char** argv)
 	 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB|GLUT_DEPTH); // set 
 	 
-	glutInitWindowSize(1000,680); // set window size 
+	glutInitWindowSize(width, height); // set window size 
 	glutInitWindowPosition(200, 150); // set window position on 
 	 
 	glutCreateWindow("Towers of Hanoi"); // open the screen window 
