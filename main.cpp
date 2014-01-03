@@ -67,9 +67,6 @@ void myDisplay(){
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position_1);
 	glLightfv(GL_LIGHT1, GL_POSITION, light_position_2);
 	env.draw();
-
-	
-	land.draw();
 	
 	land.render();
 	glFlush(); 
