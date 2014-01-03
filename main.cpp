@@ -5,10 +5,12 @@
 #include "include/disk.hpp"
 #include "./include/texture.hpp"
 #include <SFML/Audio/Music.hpp>
+#include <cmath>
+
 
 unsigned int width = 1000;
 unsigned int height = 680;
-double eyeX = 0;
+double eyeX = 1;
 double eyeY = 20;
 double eyeZ = 30;
 static bool MOVING = false;
@@ -17,6 +19,8 @@ static sf::Music music;
 static bool playing;
 static float currentVolume;
 
+static float deltaAngleX = 0;
+static float deltaAngleY = 0;
 
 
 struct RodSelector {
@@ -44,7 +48,8 @@ Environment env;
 
 
 
-const float light_position[4] = {0.0f, 0.75f, 0.5f, 0.0f}; 
+const float light_position_1[4] = {0.0f, 0.75f, 0.5f, 0.0f}; 
+const float light_position_2[4] = {0.0f, 0.75f, -0.5f, 0.0f}; 
 
 
 void myDisplay(){
@@ -55,10 +60,12 @@ void myDisplay(){
 	gluPerspective(45.0f, width/height, 0.1f, 1000.0f);
 	glMatrixMode(GL_MODELVIEW); 
 	glLoadIdentity(); 	 
-	gluLookAt(eyeX,eyeY, eyeZ, 0, 0, 0, 0,1.0,0); 
+	gluLookAt(eyeX * std::sin(deltaAngleY) ,eyeY, eyeZ * std::cos(deltaAngleX) , 0, 0, 0, 0,1.0,0); 
 	// define light pos
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position_1);
+	glLightfv(GL_LIGHT1, GL_POSITION, light_position_2);
 	env.draw();
+
 	glFlush(); 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -122,6 +129,18 @@ void myKeyboard(unsigned char key, int x, int y) {
 	}
 }
 
+
+void myMouseMotion(int x, int y) {
+
+	// this will only be true when the left button is down
+
+		// update deltaAngle
+		deltaAngleX = x * 0.005f;
+		deltaAngleY = y * 0.005f;
+		// update camera's direction
+		
+}
+
 int main(int argc, char** argv) 
 { 	
 	music.openFromFile("Antti_Martikainen_-_At_the_Gates_of_Babylon.ogg");
@@ -140,19 +159,21 @@ int main(int argc, char** argv)
 	 
 	glutCreateWindow("Towers of Hanoi"); // open the screen window 
 	glutDisplayFunc(myDisplay); // register redraw function 
-
+	glutPassiveMotionFunc(myMouseMotion);
 	glutSpecialFunc(mySpecial);
 	glutKeyboardFunc(myKeyboard);
 	glShadeModel(GL_SMOOTH); 
 	glEnable(GL_DEPTH_TEST); 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glEnable (GL_BLEND);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_BLEND);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	const float whiteLight[4] = {0.8f, 0.8f, 0.8f, 1.0f};
 	const float spotCutoff = 60.0f;
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
 	glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &spotCutoff);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, whiteLight);
 	glClearColor(0.0,0.0,0.0,1.0);
 	
 	glutMainLoop(); // go into a perpetual loop 
