@@ -103,37 +103,53 @@ void Environment::highLight(rod_selected rod){
     }
     rods[selected_rod].highlight();
 }
+bool inRange(float v, float min, float max) {
+    return (v >= min) && (v <= max);
+}
 
 bool Environment::should_move_back(){
     Point current_point = selected->get_origin();
-    if(current_point.x == -7 || current_point.y == 0 
-        ||current_point.x == 7){
-        if(current_point.y >= 0 && current_point.y <10)
+    if(inRange(current_point.x, -8, -6) || inRange(current_point.x, -1, 1)
+        || inRange(current_point.x , 6, 8)){
+        if(current_point.y >= 0 && current_point.y <=10)
         {
             if(current_point.z == 0){
                 if(current_point.x == -7){
                     auto &s = stacks_array[0];
-                    if(selected > s.front()){
+                    if(s.empty()) {
+                        return false;
+                    }else if(selected > s.front()){
                         return true;
+                    }else {
+                        return false;
                     }
                 }
                 else if(current_point.x == 0){
                     auto &s = stacks_array[1];
-                    if(selected > s.front()){
+                    if(s.empty()) {
+                        return false;
+                    }else if(selected > s.front()){
                         return true;
+                    }else {
+                        return false;
                     }
                 }
                 else if(current_point.x == 7){
                     auto &s = stacks_array[2];
-                    if(selected > s.front()){
+                    if(s.empty()) {
+                        return false;
+                    }else if(selected > s.front()){
                         return true;
+                    }else {
+                        return false;
                     }
                 }
             }
             return false;
+        }else {
+            return true;
         }
-    }
-    else {
+    } else {
         return true;
     }
 
@@ -143,10 +159,20 @@ void Environment::unselect(){
     if(current_selected) {
         if(should_move_back()){
             selected->set_origin(last_point);
-        }
-        else{
+
+        }else{
             move_counter++;
+
         }
+
+        if(inRange(selected->get_origin().x, -8, -6)) {
+            stacks_array[0].push_front(selected);
+        }else if (inRange(selected->get_origin().x, -1 , 1) ){
+            stacks_array[1].push_front(selected);
+        }else if (inRange(selected->get_origin().x, 6, 8) ) {
+            stacks_array[2].push_front(selected);
+        }
+   
         current_selected = false;
     }
 }
