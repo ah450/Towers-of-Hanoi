@@ -14,5 +14,6 @@
 *.bmp
 *.png
 *.orig
-
+*.gz
+*pdf
 main
