@@ -6,14 +6,16 @@
 class Disk{
 private:
     Point disk_origin;
-    float rgba[4]; 
+    float rgba[4];
+    GLUquadricObj *quad;
 	double in_radius;
 	double out_radius;
-    double nsides;
-    double rings;
+    int slices;
+    int loops;
+    void construct_disk();
 public:
 	Disk(Point, Color ,double, double);
-    Disk(Point, Color ,double, double, double, double);
+    Disk(Point, Color ,double, double, int, int);
 	void draw();
 	void move();//fix me
 };
