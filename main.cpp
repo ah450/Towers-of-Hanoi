@@ -2,6 +2,7 @@
 #include "./include/rods.hpp"
 #include "./include/land.hpp"
 #include "include/disk.hpp"
+#include "./include/texture.hpp"
 
 unsigned int width = 1000;
 unsigned int height = 680;
@@ -33,8 +34,8 @@ void myDisplay(){
 	glColor3f(0.5f,0.5f,0.5f);
 	land.draw();
 	testRod.draw();
-	testDisk.drawDisk();
-
+	//testDisk.drawDisk();
+	render();
 	glFlush(); 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -52,7 +53,7 @@ int main(int argc, char** argv)
 	 
 	glutCreateWindow("Towers of Hanoi"); // open the screen window 
 	glutDisplayFunc(myDisplay); // register redraw function 
-
+	init();
 	glShadeModel(GL_SMOOTH); 
 	glEnable(GL_DEPTH_TEST); 
 	glEnable(GL_LIGHTING);
