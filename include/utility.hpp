@@ -1,5 +1,6 @@
 #pragma once
 #include "gl.hpp"
-#include "bitmap.hpp"
+#include <string>
 
-extern GLuint loadTexture(image::Bitmap &bmp);
+
+extern GLuint loadTexture(const std::string filename, int &width, int &height);

@@ -1,12 +1,12 @@
 #include "../include/bitmap.hpp"
 #include <fstream>
 #include <utility>
-
+#include <iostream>
 
 image::Bitmap::Bitmap(const std::string & fileName) {
+    
     std::ifstream file(fileName, std::ios::binary | std::ios::in);    
     if(file) {
-       
         image::BitmapHeader header;
         // read header
         file.read( reinterpret_cast<char *>(&header), sizeof(header));
@@ -44,6 +44,7 @@ image::Bitmap::Bitmap(const std::string & fileName) {
         
         
     }else {
+
         width = height = size = 0;
     }
 }   
