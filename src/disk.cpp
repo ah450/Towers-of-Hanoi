@@ -23,6 +23,8 @@ void Disk::draw(){
     glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba);
+		glRotatef(90, 1,0,0);
+		glScalef(0.5,0.5,0.5);
 		glutSolidTorus(in_radius, out_radius, nsides, rings);
 	glPopMatrix();
 }
