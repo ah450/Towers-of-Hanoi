@@ -10,7 +10,7 @@ Land land({6});
 Rod testRod({0.0, 0.0, 0.0}, {1.0f, 0.0f, 0.0f, 1.0f});
 Disk testDisk({0.0,0.0,0.0},2,3);
 
-const float light_position[4] = {0.0f, 1.0f, 0.5f, 0.0f}; 
+const float light_position[4] = {0.0f, 0.75f, 0.5f, 0.0f}; 
 
 
 void myDisplay(){
@@ -27,10 +27,7 @@ void myDisplay(){
 	gluLookAt(0,0, 30, 0, 0, 0, 0,1.0,0); 
 	// define light pos
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	//
 	
-
-	glColor3f(0.5f,0.5f,0.5f);
 	land.draw();
 	testRod.draw();
 	testDisk.drawDisk();
@@ -57,6 +54,10 @@ int main(int argc, char** argv)
 	glEnable(GL_DEPTH_TEST); 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	const float whiteLight[4] = {0.8f, 0.8f, 0.8f, 1.0f};
+	const float spotCutoff = 60.0f;
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
+	glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &spotCutoff);
 	glClearColor(0.0,0.0,0.0,1.0);
 	
 	glutMainLoop(); // go into a perpetual loop 
