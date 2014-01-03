@@ -4,6 +4,7 @@
 #include "./include/land.hpp"
 #include "include/disk.hpp"
 #include "./include/texture.hpp"
+#include <SFML/Audio/Music.hpp>
 
 unsigned int width = 1000;
 unsigned int height = 680;
@@ -11,6 +12,13 @@ double eyeX = 0;
 double eyeY = 20;
 double eyeZ = 30;
 static bool MOVING = false;
+
+static sf::Music music;
+static bool playing;
+static float currentVolume;
+
+
+
 struct RodSelector {
 	unsigned int index;
 	RodSelector() : index(0){}
@@ -69,6 +77,23 @@ void mySpecial(int key, int x, int y){
 				--CURRENT_ROD;
 				break;
 		}
+	}
+
+	switch(key) {
+		case GLUT_KEY_PAGE_DOWN:
+			currentVolume -= 5.0f;
+			if(currentVolume < 0) {
+				currentVolume = 0;
+			}
+			music.setVolume(currentVolume);
+			break;
+		case GLUT_KEY_PAGE_UP:
+			currentVolume += 5.0f;
+			if(currentVolume > 100.0f) {
+				currentVolume = 100.0f;
+			}
+			music.setVolume(currentVolume);
+			break;
 	}	
 }
 
@@ -86,12 +111,24 @@ void myKeyboard(unsigned char key, int x, int y) {
 				//call functions on game
 			}
 			break;
+		case 32:
+			if(playing) {
+				music.pause();
+				playing = false;
+			}else {
+				music.play();
+				playing = true;
+			}
 	}
 }
 
 int main(int argc, char** argv) 
 { 	
-	
+	music.openFromFile("Antti_Martikainen_-_At_the_Gates_of_Babylon.ogg");
+	music.setLoop(true);
+	music.play();
+	playing = true;
+	currentVolume = 100.0f;
 	glutInit(&argc, argv); // initialize the toolkit 
 	 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB|GLUT_DEPTH); // set 
