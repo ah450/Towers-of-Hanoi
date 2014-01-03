@@ -39,10 +39,7 @@ void myDisplay(){
 }
 
 void mySpecial(int key, int x, int y){
-
-
 	if(MOVING) {
-		swtich
 
 	}else {
 		switch (key) {
@@ -52,6 +49,14 @@ void mySpecial(int key, int x, int y){
 				break;
 		}
 	}	
+}
+
+void myKeyboard(unsigned char key, int x, int y) {
+	switch (key) {
+		case 27: // escape
+			glutLeaveMainLoop();
+			break;
+	}
 }
 
 int main(int argc, char** argv) 
@@ -68,7 +73,7 @@ int main(int argc, char** argv)
 	glutDisplayFunc(myDisplay); // register redraw function 
 
 	glutSpecialFunc(mySpecial);
-
+	glutKeyboardFunc(myKeyboard);
 	glShadeModel(GL_SMOOTH); 
 	glEnable(GL_DEPTH_TEST); 
 	glEnable(GL_LIGHTING);
