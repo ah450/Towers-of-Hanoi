@@ -25,7 +25,7 @@ void myDisplay(){
 	
 	
 	testRod.draw();
-	testDisk.drawDisk();
+	testDisk.draw();
 
 	glFlush(); 
 	glutSwapBuffers();

@@ -19,7 +19,7 @@ Disk::Disk(Point origin, Color rgba, double in_radius, double out_radius, double
 	std::memcpy(this->rgba, reinterpret_cast<const void *>(&rgba), 4 * sizeof(float));
 }
 
-void Disk::drawDisk(){
+void Disk::draw(){
     glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba);
@@ -27,5 +27,5 @@ void Disk::drawDisk(){
 	glPopMatrix();
 }
 
-void Disk::moveDisk(){
+void Disk::move(){
 }

@@ -14,6 +14,6 @@ private:
 public:
 	Disk(Point, Color ,double, double);
     Disk(Point, Color ,double, double, double, double);
-	void drawDisk();
-	void moveDisk();//fix me
+	void draw();
+	void move();//fix me
 };
