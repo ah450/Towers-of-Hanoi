@@ -7,11 +7,11 @@
 #include <array>
 
 enum class rod_selected{
-    left, middle, right;
+    left, middle, right
 };
 
 enum class direction{
-    up, down, left, right, in, out;
+    up, down, left, right, in, out
 };
 
 class Environment{
