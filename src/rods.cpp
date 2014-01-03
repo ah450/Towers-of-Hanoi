@@ -1,5 +1,4 @@
 #include "../include/rods.hpp"
-#include "../include/utility.hpp"
 #include <cstring>
 constexpr double radius = 0.15;
 constexpr double height = 10;
