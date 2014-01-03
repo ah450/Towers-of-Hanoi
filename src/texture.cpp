@@ -1,5 +1,3 @@
-#include "../include/land.hpp"
-#include "../include/color.hpp"
 #include "../include/gl.hpp"
 #include <png.h>
 #include <cstdio>
@@ -11,48 +9,21 @@
 
 #define TEXTURE_LOAD_ERROR 0
 
-void Land::draw() {
-	float rgba[] ={0,0,1,0};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba);
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glTranslated(0,-10,0);
-    glScaled(3,0.25,2);
-    glutSolidCube(m_size);
-    glPopMatrix();
-
-    float rgba2[] ={1,0,0,0};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba2);
-    glPushMatrix();
-    glTranslated(0,-8,0);
-    glScaled(3,0.25,2);
-    glutSolidCube(m_size-1);
-    glPopMatrix();
-
-	float rgba3[] ={1,1,0,0};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba3);
-    glPushMatrix();
-    glTranslated(0,-6,0);
-    glScaled(3,0.25,2);
-    glutSolidCube(m_size-2);
-    glPopMatrix();    
-}
-
 using namespace std;
 /** loadTexture
- *  loads a png file into an opengl texture object, using cstdio , libpng, and opengl.
+ * 	loads a png file into an opengl texture object, using cstdio , libpng, and opengl.
  *
- *  \param filename : the png file to be loaded
- *  \param width : width of png, to be updated as a side effect of this function
- *  \param height : height of png, to be updated as a side effect of this function
+ * 	\param filename : the png file to be loaded
+ * 	\param width : width of png, to be updated as a side effect of this function
+ * 	\param height : height of png, to be updated as a side effect of this function
  *
- *  \return GLuint : an opengl texture id.  Will be 0 if there is a major error,
- *                  should be validated by the client of this function.
+ * 	\return GLuint : an opengl texture id.  Will be 0 if there is a major error,
+ * 					should be validated by the client of this function.
  *
  */
 static GLuint texture;
 double var =0;
-GLuint Land::loadTexture(const string filename, int &width, int &height)
+GLuint loadTexture(const string filename, int &width, int &height)
 {
   //header for testing if it is a png
   png_byte header[8];
@@ -174,7 +145,7 @@ GLuint Land::loadTexture(const string filename, int &width, int &height)
 }
 
 
- void Land::render()
+ void render()
  {
   glDisable(GL_LIGHTING);
     glPushMatrix();
@@ -211,9 +182,11 @@ GLuint Land::loadTexture(const string filename, int &width, int &height)
      glEnable(GL_LIGHTING);
  }
 
- void Land::init()
+ void init()
  {
      int width = 256;
      int height = 256;
      texture = loadTexture("land.png", width, height);
  }
+
+ 

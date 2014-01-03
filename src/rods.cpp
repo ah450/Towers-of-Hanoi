@@ -1,8 +1,6 @@
 #include "../include/rods.hpp"
 #include "../include/utility.hpp"
 #include <cstring>
-#include <iostream>
-
 constexpr double radius = 0.15;
 constexpr double height = 10;
 constexpr int slices = 200;
@@ -15,6 +13,7 @@ Rod::Rod(Point origin, Color rgba) : origin(origin), quad(gluNewQuadric()) {
     gluQuadricOrientation(quad, GLU_OUTSIDE);
     gluQuadricTexture(quad, GLU_TRUE);
     std::memcpy(this->rgba, reinterpret_cast<const void *>(&rgba), 4 * sizeof(float));
+   
 }
 
 void Rod::draw() {
@@ -26,6 +25,7 @@ void Rod::draw() {
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba);
     gluCylinder(quad, radius, radius,  height, slices, stacks);
     glPopMatrix();
+
 
 
 }

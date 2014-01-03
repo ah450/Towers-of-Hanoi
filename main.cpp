@@ -2,12 +2,12 @@
 #include "./include/rods.hpp"
 #include "./include/land.hpp"
 #include "include/disk.hpp"
-#include <iostream>
+#include "./include/texture.hpp"
 
 unsigned int width = 1000;
 unsigned int height = 680;
 double eyeX = 0;
-double eyeY = 0;
+double eyeY = 20;
 double eyeZ = 30;
 
 Land land({6});
@@ -35,9 +35,11 @@ void myDisplay(){
 	
 
 
-	//land.draw();
+	land.draw();
+	land.init();
+	land.render();
 	testRod.draw();
-	//testDisk.draw();
+	testDisk.draw();
 
 	glFlush(); 
 	glutSwapBuffers();
@@ -58,7 +60,7 @@ void myKeyboard(int key, int x, int y){
 
 int main(int argc, char** argv) 
 { 	
-
+	
 	glutInit(&argc, argv); // initialize the toolkit 
 	 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB|GLUT_DEPTH); // set 
