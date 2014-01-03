@@ -10,12 +10,12 @@ Rod::Rod(Point origin, Color rgba) : origin(origin), quad(gluNewQuadric()), high
     gluQuadricDrawStyle(quad, GLU_FILL);
     gluQuadricNormals(quad, GLU_SMOOTH);
     gluQuadricOrientation(quad, GLU_OUTSIDE);
+    //gluQuadricTexture(quad, true);
     std::memcpy(this->rgba, reinterpret_cast<const void *>(&rgba), 4 * sizeof(float));
    
 }
 
 void Rod::draw() {
-
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glTranslatef(origin.x, origin.y - (height / 2) , origin.z);

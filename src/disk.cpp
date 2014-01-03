@@ -1,6 +1,7 @@
 #include "../include/disk.hpp"
 #include <cstring>
 
+
 constexpr int height = 1;
 constexpr int stacks = 30;
 

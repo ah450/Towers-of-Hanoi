@@ -3,7 +3,6 @@
 double gravity_value = 0.1;
 
 Environment::Environment() : 
-    land({8}), 
     rods({
         Rod({-7.0,0.0,0.0},{1.0,0.0,0.0,1.0f}),
         Rod({0.0,0.0,0.0},{1.0,0.0,0.0,1.0f}),
@@ -28,7 +27,6 @@ Environment::Environment() :
 }
 
 void Environment::draw(){
-    land.draw();
     for(auto &i: rods){
         i.draw();
     }
@@ -38,42 +36,53 @@ void Environment::draw(){
     apply_gravity();
 }
 
-bool Environment::select(rod_selected rod){
-    auto &s = stacks_array[0];
-    switch(rod){
+
+static int translateSelection(rod_selected sel) {
+    switch (sel) {
+        case rod_selected::left:
+            return 0;
         case rod_selected::middle:
-            s = stacks_array[1];
-            break;
+            return 1;
         case rod_selected::right:
-            s = stacks_array[2];
-            break;
+            return 2;
+
     }
-    if(s.empty()){
+}
+bool Environment::select(rod_selected rod){
+    if(!current_selected) {
+        int index = translateSelection(rod);
+        auto &s = stacks_array[index];
+        if(s.empty()){
+            current_selected = false;
+            return false;
+        } else{
+            current_selected = true;
+            selected = s.front();
+            last_point = selected->get_origin();
+            s.pop_front();
+            return true;
+        }
+    }else {
         return false;
-    }
-    else{
-        current_selected = true;
-        selected = s.front();
-        last_point = selected->get_origin();
-        s.pop_front();
-        return true;
     }
 }
 
 void Environment::move(direction dir){
-    switch(dir){
-        case direction::up:
-            selected->move(vector({0,0.5,0}));
-            break;
-        case direction::down:
-            selected->move(vector({0,-0.5,0}));
-            break;
-        case direction::right:
-            selected->move(vector({0.5,0,0}));
-            break;
-        case direction::left:
-            selected->move(vector({-0.5,0,0}));
-            break;
+    if(current_selected) {
+        switch(dir){
+            case direction::up:
+                selected->move(vector({0,0.5,0}));
+                break;
+            case direction::down:
+                selected->move(vector({0,-0.5,0}));
+                break;
+            case direction::right:
+                selected->move(vector({0.5,0,0}));
+                break;
+            case direction::left:
+                selected->move(vector({-0.5,0,0}));
+                break;
+        }
     }
 }
 
@@ -113,50 +122,78 @@ void Environment::highLight(rod_selected rod){
     }
     rods[selected_rod].highlight();
 }
+bool inRange(float v, float min, float max) {
+    return (v >= min) && (v <= max);
+}
 
 bool Environment::should_move_back(){
     Point current_point = selected->get_origin();
-    if(current_point.x == -7 || current_point.y == 0 
-        ||current_point.x == 7){
-        if(current_point.y >= 0 && current_point.y <10)
+    if(inRange(current_point.x, -8, -6) || inRange(current_point.x, -1, 1)
+        || inRange(current_point.x , 6, 8)){
+        if(current_point.y >= 0 && current_point.y <=10)
         {
             if(current_point.z == 0){
                 if(current_point.x == -7){
                     auto &s = stacks_array[0];
-                    if(selected > s.front()){
+                    if(s.empty()) {
+                        return false;
+                    }else if(selected > s.front()){
+                        return true;
+                    }else {
                         return false;
                     }
                 }
                 else if(current_point.x == 0){
                     auto &s = stacks_array[1];
-                    if(selected > s.front()){
+                    if(s.empty()) {
+                        return false;
+                    }else if(selected > s.front()){
+                        return true;
+                    }else {
                         return false;
                     }
                 }
                 else if(current_point.x == 7){
                     auto &s = stacks_array[2];
-                    if(selected > s.front()){
+                    if(s.empty()) {
+                        return false;
+                    }else if(selected > s.front()){
+                        return true;
+                    }else {
                         return false;
                     }
                 }
             }
+            return false;
+        }else {
             return true;
         }
-    }
-    else {
-        return false;
+    } else {
+        return true;
     }
 
 }
 
 void Environment::unselect(){
-    if(should_move_back()){
-        selected->set_origin(last_point);
+    if(current_selected) {
+        if(should_move_back()){
+            selected->set_origin(last_point);
+
+        }else{
+            move_counter++;
+
+        }
+
+        if(inRange(selected->get_origin().x, -8, -6)) {
+            stacks_array[0].push_front(selected);
+        }else if (inRange(selected->get_origin().x, -1 , 1) ){
+            stacks_array[1].push_front(selected);
+        }else if (inRange(selected->get_origin().x, 6, 8) ) {
+            stacks_array[2].push_front(selected);
+        }
+   
+        current_selected = false;
     }
-    else{
-        move_counter++;
-    }
-    current_selected = false;
 }
 
 void Environment::apply_gravity(){

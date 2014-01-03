@@ -11,32 +11,6 @@
 
 #define TEXTURE_LOAD_ERROR 0
 
-void Land::draw() {
-	float rgba[] ={0,0,1,1};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba);
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glTranslated(0,-10,0);
-    glScaled(3,0.25,2);
-    glutSolidCube(m_size);
-    glPopMatrix();
-
-    float rgba2[] ={1,0,0,1};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba2);
-    glPushMatrix();
-    glTranslated(0,-8,0);
-    glScaled(3,0.25,2);
-    glutSolidCube(m_size-1);
-    glPopMatrix();
-
-	float rgba3[] ={1,1,0,1};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba3);
-    glPushMatrix();
-    glTranslated(0,-6,0);
-    glScaled(3,0.25,2);
-    glutSolidCube(m_size-2);
-    glPopMatrix();    
-}
 
 using namespace std;
 /** loadTexture
@@ -179,8 +153,8 @@ GLuint Land::loadTexture(const string filename, int &width, int &height)
   glDisable(GL_LIGHTING);
     glPushMatrix();
      glEnable(GL_TEXTURE_2D);
-         glTranslated(-5.5,-8,-1.6);
-         glScaled(11,3,8);
+         glTranslated(-9,-9,-6);
+         glScaled(18,4,12.4);
          glBegin(GL_QUADS);
          glNormal3f(0.0, 0.0, 1.0);
          glTexCoord2d(1, 1); glVertex3f(0.0, 1.0, 0.0);
@@ -188,14 +162,45 @@ GLuint Land::loadTexture(const string filename, int &width, int &height)
          glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 1.0);
          glTexCoord2d(0, 1); glVertex3f(1.0, 1.0, 0.0);
          glEnd();
-
-         glDisable(GL_TEXTURE_2D);
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(1.0, 0.0, 0.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 0.0);
+         glTexCoord2d(0, 1); glVertex3f(0.0, 1.0, 0.0);
+         glEnd();
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(0.0, 0.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(0.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(0.0, 1.0, 0.0);
+         glEnd();
+         glPushMatrix();
+         glTranslated(0,0, 0.012);
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 0.1);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 0); glVertex3f(1.0, 0.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(0.0, 1.0, 1.0);
+         glEnd();
+         glPopMatrix();
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(1.0, 0.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(1.0, 0.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(1.0, 1.0, 0.0);
+         glEnd();
+         //
+     glDisable(GL_TEXTURE_2D);
      glPopAttrib();
      glPopMatrix();
      glPushMatrix();
      glEnable(GL_TEXTURE_2D);
-         glTranslated(-7.15,-10,-2.8);
-         glScaled(14.3,3,9.2);
+         glTranslated(-10.5,-11,-7);
+         glScaled(21,4,14.4);
          glBegin(GL_QUADS);
          glNormal3f(0.0, 0.0, 1.0);
          glTexCoord2d(1, 1); glVertex3f(0.0, 1.0, 0.0);
@@ -203,11 +208,87 @@ GLuint Land::loadTexture(const string filename, int &width, int &height)
          glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 1.0);
          glTexCoord2d(0, 1); glVertex3f(1.0, 1.0, 0.0);
          glEnd();
-
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(1.0, 0.0, 0.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 0.0);
+         glTexCoord2d(0, 1); glVertex3f(0.0, 1.0, 0.0);
+         glEnd();
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(0.0, 0.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(0.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(0.0, 1.0, 0.0);
+         glEnd();
+         glPushMatrix();
+         glTranslated(0,0, 0.012);
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 0.1);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 0); glVertex3f(1.0, 0.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(0.0, 1.0, 1.0);
+         glEnd();
+         glPopMatrix();
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(1.0, 0.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(1.0, 0.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(1.0, 1.0, 0.0);
+         glEnd();
+      //
          glDisable(GL_TEXTURE_2D);
      glPopAttrib();
      glPopMatrix();
     
+    glPushMatrix();
+     glEnable(GL_TEXTURE_2D);
+         glTranslated(-11.5,-13,-8.5);
+         glScaled(24,4,17.4);
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 1.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(0.0, 1.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(1.0, 1.0, 0.0);
+         glEnd();
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(1.0, 0.0, 0.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 0.0);
+         glTexCoord2d(0, 1); glVertex3f(0.0, 1.0, 0.0);
+         glEnd();
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(0.0, 0.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(0.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(0.0, 1.0, 0.0);
+         glEnd();
+         glPushMatrix();
+         glTranslated(0,0, 0.012);
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 0.1);
+         glTexCoord2d(1, 1); glVertex3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 0); glVertex3f(1.0, 0.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(0.0, 1.0, 1.0);
+         glEnd();
+         glPopMatrix();
+         glBegin(GL_QUADS);
+         glNormal3f(0.0, 0.0, 1.0);
+         glTexCoord2d(1, 1); glVertex3f(1.0, 0.0, 0.0);
+         glTexCoord2d(1, 0); glVertex3f(1.0, 0.0, 1.0);
+         glTexCoord2d(0, 0); glVertex3f(1.0, 1.0, 1.0);
+         glTexCoord2d(0, 1); glVertex3f(1.0, 1.0, 0.0);
+         glEnd();
+         glDisable(GL_TEXTURE_2D);
+     glPopMatrix();
+
      glEnable(GL_LIGHTING);
  }
 
