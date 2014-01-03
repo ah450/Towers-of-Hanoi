@@ -90,7 +90,7 @@ void Environment::highLight(rod_selected rod){
             selected_rod = 2;
             break;
     }
-    rods[selected_rod].hightlight();
+    rods[selected_rod].highlight();
 }
 
 bool Environment::should_move_back(){
@@ -125,6 +125,7 @@ bool Environment::should_move_back(){
     else {
         return false;
     }
+
 }
 
 void Environment::unselect(){
@@ -132,13 +133,13 @@ void Environment::unselect(){
         selected->set_origin(last_point);
     }
     else{
-        move_counter ++;
+        move_counter++;
     }
     current_selected = false;
 }
 
 void Environment::apply_gravity(){
-    for(auto &i: disks){
+     for(auto &i: disks){
         if(can_move(i)){
             i.move(vector({0.0,-0.1,0.0}));
         }    
@@ -147,5 +148,5 @@ void Environment::apply_gravity(){
 
 //collision detection
 bool Environment::can_move(Disk &i){
-
+    return true;
 }

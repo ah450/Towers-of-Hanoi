@@ -50,7 +50,7 @@ void Disk::construct_disk(){
 void Disk::draw(){
     glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
-	    //glTranslatef(disk_origin.x, disk_origin.y - (in_radius) , disk_origin.z);
+	    glTranslatef(disk_origin.x, disk_origin.y - (in_radius) , disk_origin.z);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, rgba);
 		construct_disk();
 	glPopMatrix();
