@@ -40,7 +40,7 @@ void myDisplay(){
 
 void mySpecial(int key, int x, int y){
 	if(MOVING) {
-		
+
 	}else {
 		switch (key) {
 			case GLUT_KEY_RIGHT:
@@ -67,7 +67,9 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB|GLUT_DEPTH); // set 
 	 
 	glutInitWindowSize(width, height); // set window size 
-	glutInitWindowPosition(200, 150); // set window position on 
+	const int screenWidth = glutGet(GLUT_SCREEN_WIDTH);
+	const int screenHeight = glutGet(GLUT_SCREEN_HEIGHT);
+	glutInitWindowPosition((screenWidth - width) / 2, (screenHeight - height) /2); // set window position on 
 	 
 	glutCreateWindow("Towers of Hanoi"); // open the screen window 
 	glutDisplayFunc(myDisplay); // register redraw function 
