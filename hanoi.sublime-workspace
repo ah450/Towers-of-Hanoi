@@ -1,0 +1,541 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"my",
+				"myKeyboard"
+			],
+			[
+				"main",
+				"mainMem"
+			],
+			[
+				"inc",
+				"include"
+			],
+			[
+				"ic",
+				"include"
+			],
+			[
+				"is",
+				"is_full"
+			],
+			[
+				"ins",
+				"instruction"
+			],
+			[
+				"u",
+				"uint16_t"
+			],
+			[
+				"v",
+				"void"
+			],
+			[
+				"s",
+				"size"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"in",
+				"int"
+			],
+			[
+				"for",
+				"for	For Loop"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.cpp",
+			"settings":
+			{
+				"buffer_size": 1986,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "\n#include <GL/freeglut.h>\n#include <GL/glu.h>\n#include <iostream>\n\nvoid SetupLights() \n{ \n	GLfloat mat_ambient[]={0.7f,0.7f,0.7f,1.0f}; 	 \n	GLfloat mat_diffuse[]={0.1f,0.6f,0.1,1.0f}; \n	GLfloat mat_specular[]={1.0f,1.0f,1.0,1.0f}; \n	GLfloat light_position[]={1.0f, 1.0f, 1.0f, 0.0f}; \n	glLightfv(GL_LIGHT0,GL_POSITION,light_position); \n	glLightfv(GL_LIGHT0, GL_DIFFUSE, mat_diffuse); \n	glLightfv(GL_LIGHT0, GL_AMBIENT, mat_ambient); \n	glLightfv(GL_LIGHT0, GL_SPECULAR, mat_specular); \n	glEnable(GL_LIGHTING); \n	glEnable(GL_LIGHT0); \n}\n\nvoid myKeyboard(unsigned char key,int x, int y){\n	switch(key){\n		case 'w':std::cout<<\"w\\n\"<<std::endl;break;\n		case 's':std::cout<<\"s\\n\"<<std::endl;break;\n		case 'd':std::cout<<\"d\\n\"<<std::endl;break;\n		case 'a':std::cout<<\"a\\n\"<<std::endl;break;\n		default: std::cout<<\"WTF! unknown input\\n\"<<std::endl;\n	}\n}\n\nvoid myDisplay(){\n\n	//SetupLights();\n	\n	glMatrixMode(GL_PROJECTION); \n	glLoadIdentity(); \n	\n	gluPerspective(45.0f, 100/64, 0.1f, 1000.0f);\n	glMatrixMode(GL_MODELVIEW); \n	glLoadIdentity(); \n	 \n	gluLookAt(10,10, 10, 0, 0, 0,0.0,1.0,0.0); \n	 \n	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT); \n\n	glColor3f(0.5f,0.5f,0.5f);\n	GLUquadric*  quadric = gluNewQuadric();\n	gluQuadricDrawStyle(quadric, render1);\n    gluDisk(quadric, 1, 1, 3, 20);\n	glutSolidCube(5);\n\n	glFlush(); \n	glutSwapBuffers();\n	glutPostRedisplay();\n\n}\nint main(int argc, char** argv) \n{ 	\n	\n	glutInit(&argc, argv); // initialize the toolkit \n	 \n	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB|GLUT_DEPTH); // set \n	 \n	glutInitWindowSize(1000,680); // set window size \n	glutInitWindowPosition(200, 150); // set window position on \n	 \n	glutCreateWindow(\"3D LUNAR LANDER\"); // open the screen window \n	glutDisplayFunc(myDisplay); // register redraw function \n	glutKeyboardFunc(myKeyboard);\n	glShadeModel(GL_SMOOTH); \n	glEnable(GL_DEPTH_TEST); \n	glEnable(GL_NORMALIZE); \n	glEnable(GL_COLOR_MATERIAL);\n\n	glClearColor(1.0,1.0,1.0,1.0);\n	\n	glutMainLoop(); // go into a perpetual loop \n}",
+			"settings":
+			{
+				"buffer_size": 1985,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/mohamed/workspace/opengl/Towers-of-Hanoi/hanoi.sublime-project",
+		"/home/mohamed/workspace/opengl/Towers-of-Hanoi/main",
+		"/home/mohamed/workspace/opengl/Towers-of-Hanoi/Makefile",
+		"/home/mohamed/workspace/opengl/Towers-of-Hanoi/main.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tests/tomasulo_tests.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/core/tomasulo.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/test2.asm",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/tomasulo/rob.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/core/rob_entry.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/core/rob.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/inst_label.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/asm/internal/inst_helpers.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/tomasulo/instruction.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tests/instruction_tests.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/core/inst_buffer.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/core/i_memory.h",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/RiSC.files",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/tomasulo/reservation_station.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/test3.asm",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/test1.asm",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tests/cache_test.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/memory/cache.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/core/cache.h",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/a.out",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/test4.asm",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/tomasulo/inst_buffer.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/memory/main_memory.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/entry.cpp",
+		"/home/mohamed/downloads/siduction-13.2.0-december-rqt-amd64-201312310312.iso.sha256",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/core/main_memory.h",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/asm/internal/instruction.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/README.md",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tests/catch.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/assembler.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/tomasulo/statics.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/functors/add.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/functors/addi.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/functors/and.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/tomasulo/tomasulo.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/assembling_state.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/directives.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/sym.cpp",
+		"/usr/bin/dmenu",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/SConstruct",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/functors/halt.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tests/asm_tests.hpp",
+		"/home/mohamed/log.txt",
+		"/home/mohamed/.zshrc",
+		"/home/mohamed/log.html",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tomasulo/tomasulo.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tomasulo/reg_board.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/tomasulo/inst_buffer_row.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tomasulo/rob.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tomasulo/reservation_station.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/tomasulo.h",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/SConscript",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tomasulo/inst_buffer.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tomasulo/inst_buffer_row.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/functors/jali.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/internal/functors/jalr.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tomasulo/instruction.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/asm/internal/utility.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/asm/SConscript",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/SConscript",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/project.config",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tomasulo/rob_entry.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/asm/internal/sym.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/asm/internal/sym_reference.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/asm/internal/assembling_state.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/tomasulo/reg_file.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/asm/internal/internal.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/include/asm/internal/typedefs.hpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/project.creator.user",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/project.files",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/tomasulo/inst_buffer.cpp.autosave",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/cache.cpp",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/src/core/cache.h",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/RiSC-16-dbg",
+		"/home/mohamed/workspace/c++/RiSC-16-Simulator/<filename.txt>",
+		"/home/mohamed/workspace/opengl/ogldev-source/tutorial02/tutorial02.cpp",
+		"/home/mohamed/workspace/opengl/ogldev-source/tutorial02/math_3d.h",
+		"/home/mohamed/workspace/opengl/ogldev-source/tutorial03/tutorial03.cpp",
+		"/media/muhammed/study notes/embedded systems/(1)Outline & Fundamentals of Microcontrollers.ppt",
+		"/home/mohamed/workspace/opengl/ogldev-source/tutorial01/tutorial01.cpp",
+		"/home/mohamed/workspace/c++/kyle-cache-read-only/KyleCache/KyleCache.cpp",
+		"//home/mohamed/workspace/c++/learning/main.cpp",
+		"//home/mohamed/workspace/c++/learning/untitled",
+		"/home/mohamed/workspace/c++/main.cpp",
+		"/home/mohamed/workspace/c++"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"test",
+			"push",
+			"!\n",
+			"test",
+			"halt",
+			"type",
+			"rob",
+			"notify_ins",
+			"flush",
+			"rob",
+			"block.data = ",
+			"block",
+			"block.data = std",
+			"block.data",
+			"sources",
+			"mainmem",
+			"12-",
+			"12",
+			"used",
+			"lower",
+			"AnimatedView",
+			">\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"used_"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1986,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1286,
+								1286
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1985,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1985,
+								1985
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 514.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "hanoi.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"ma",
+				"main.cpp"
+			],
+			[
+				"entr",
+				"src/entry.cpp"
+			],
+			[
+				"toma",
+				"src/core/tomasulo/tomasulo.cpp"
+			],
+			[
+				"rob",
+				"include/core/rob_entry.hpp"
+			],
+			[
+				"ins",
+				"src/core/tomasulo/inst_buffer.cpp"
+			],
+			[
+				"res",
+				"src/core/tomasulo/reservation_station.cpp"
+			],
+			[
+				"test",
+				"test3.asm"
+			],
+			[
+				"cac",
+				"src/core/memory/cache.cpp"
+			],
+			[
+				"i_mem",
+				"src/core/memory/main_memory.cpp"
+			],
+			[
+				"main",
+				"src/core/memory/main_memory.cpp"
+			],
+			[
+				"cach",
+				"include/core/cache.h"
+			],
+			[
+				"i_",
+				"include/core/i_memory.h"
+			],
+			[
+				"a",
+				"a.out"
+			],
+			[
+				"te",
+				"test2.asm"
+			],
+			[
+				"cache",
+				"include/core/cache.h"
+			],
+			[
+				"tes",
+				"test1.asm"
+			],
+			[
+				"rob.",
+				"src/core/tomasulo/rob.cpp"
+			],
+			[
+				"tomas",
+				"include/tomasulo/tomasulo.hpp"
+			],
+			[
+				"consc",
+				"src/core/SConscript"
+			],
+			[
+				"scons",
+				"src/core/SConscript"
+			],
+			[
+				"sconsc",
+				"src/SConscript"
+			],
+			[
+				"sc",
+				"SConstruct"
+			],
+			[
+				"inst_bu",
+				"include/tomasulo/inst_buffer.hpp"
+			],
+			[
+				"reg",
+				"include/tomasulo/reg_board.hpp"
+			],
+			[
+				"rob.cpp",
+				"src/core/tomasulo/rob.cpp"
+			],
+			[
+				"rese",
+				"include/tomasulo/reservation_station.hpp"
+			],
+			[
+				"instru",
+				"include/tomasulo/instruction.hpp"
+			],
+			[
+				"re",
+				"include/tomasulo/reg_board.hpp"
+			],
+			[
+				"jali",
+				"src/asm/internal/functors/jali.cpp"
+			],
+			[
+				"jal",
+				"src/asm/internal/functors/jalr.cpp"
+			],
+			[
+				"ut",
+				"include/asm/internal/utility.hpp"
+			],
+			[
+				"ins_bu",
+				"include/tomasulo/inst_buffer_row.hpp"
+			],
+			[
+				"inst_buff",
+				"include/tomasulo/inst_buffer.hpp"
+			],
+			[
+				"utit",
+				"include/asm/internal/utility.hpp"
+			],
+			[
+				"buf",
+				"include/tomasulo/inst_buffer_row.hpp"
+			],
+			[
+				"in",
+				"include/tomasulo/instruction.hpp"
+			],
+			[
+				"tut",
+				"tutorial03/tutorial03.cpp"
+			],
+			[
+				"cah",
+				"Cache.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 229.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

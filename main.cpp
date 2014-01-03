@@ -1,8 +1,9 @@
 #include "./include/gl.hpp"
 #include "./include/rods.hpp"
+#include "./include/land.hpp"
 
-Rod testRod({0.0, 0.0, 0.0});
-
+Rod testRod({0.0, 5.0, 0.0});
+Land land({3});
 const float light_position[4] = {0.0f, 1.0f, 0.5f, 0.0f}; 
 
 
@@ -28,6 +29,7 @@ void myDisplay(){
 	//gluQuadricDrawStyle(quadric, render1);
     //gluDisk(quadric, 1, 1, 3, 20);
 	// glutSolidCube(5);
+	land.draw();
 	testRod.draw();
 	glFlush(); 
 	glutSwapBuffers();
