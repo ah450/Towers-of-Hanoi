@@ -3,7 +3,6 @@
 double gravity_value = 0.1;
 
 Environment::Environment() : 
-    land({8}), 
     rods({
         Rod({-7.0,0.0,0.0},{1.0,0.0,0.0,1.0f}),
         Rod({0.0,0.0,0.0},{1.0,0.0,0.0,1.0f}),
@@ -28,7 +27,6 @@ Environment::Environment() :
 }
 
 void Environment::draw(){
-    land.draw();
     for(auto &i: rods){
         i.draw();
     }
