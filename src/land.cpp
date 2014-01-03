@@ -179,8 +179,8 @@ GLuint Land::loadTexture(const string filename, int &width, int &height)
   glDisable(GL_LIGHTING);
     glPushMatrix();
      glEnable(GL_TEXTURE_2D);
-         glTranslated(-6,-8.4,-4.5);
-         glScaled(12,3,8.4);
+         glTranslated(-9,-9,-6);
+         glScaled(18,4,12.4);
          glBegin(GL_QUADS);
          glNormal3f(0.0, 0.0, 1.0);
          glTexCoord2d(1, 1); glVertex3f(0.0, 1.0, 0.0);
